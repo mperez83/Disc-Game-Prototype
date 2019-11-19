@@ -4,59 +4,52 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    float playerAngle;
     Vector2 moveVector;
+    Collider2D lastColliderHit;
 
-    public Transform weaponPivot;
+    public LayerMask collisionMask;
 
-    RaycastController raycastController;
+    CircleCollider2D circleCollider;
 
 
 
     void Start()
     {
-        raycastController = GetComponent<RaycastController>();
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
     {
-        //Figure out which direction the player is pointing
-        Vector2 axis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (axis != Vector2.zero && axis.magnitude > 0.5f)
+        //Generate the raycast
+        Vector2 castOrigin = transform.position;
+        //castOrigin += moveVector.normalized * 0.015f;
+        RaycastHit2D hit = Physics2D.CircleCast(castOrigin, circleCollider.radius, moveVector.normalized, moveVector.magnitude * Time.deltaTime, collisionMask);
+
+        //Collision movement
+        if (hit && lastColliderHit != hit.collider)
         {
-            playerAngle = TrigUtilities.VectorToDegrees(axis);
-            transform.rotation = Quaternion.AngleAxis(-playerAngle, Vector3.forward);
-            weaponPivot.rotation = transform.rotation;
+            lastColliderHit = hit.collider;
+            transform.Translate(moveVector.normalized * hit.distance, Space.World);
+
+            //The magic ingredient for applying normal surface reflections
+            //v' = 2 * (v . n) * n - v;
+            moveVector = 2 * (Vector2.Dot(moveVector, hit.normal.normalized)) * hit.normal.normalized - moveVector;
+            moveVector *= -1;
         }
 
-        //Handle shooting the gun
-        if (Input.GetButtonDown("Fire"))
+        //Normal movement
+        else
         {
-            AddRecoilForce(2);
+            if (lastColliderHit != null) lastColliderHit = null;
+            transform.Translate(moveVector * Time.deltaTime, Space.World);
         }
-
-        //raycastController.UpdateRaycasts();
-        raycastController.UpdateRaycastSingle();
-
-        //Actually move the player
-        transform.Translate(moveVector * Time.deltaTime, Space.World);
     }
 
 
 
-    public void AddRecoilForce(float force)
+    public void AddRecoilForce(float angle, float force)
     {
         //Convert our angle into a vector and apply it to our current moveVector
-        moveVector -= TrigUtilities.DegreesToVector(playerAngle) * force;
-    }
-
-    public Vector2 GetMoveVector()
-    {
-        return moveVector;
-    }
-
-    public void SetMoveVector(Vector2 newVector)
-    {
-        moveVector = newVector;
+        moveVector -= TrigUtilities.DegreesToVector(angle) * force;
     }
 }

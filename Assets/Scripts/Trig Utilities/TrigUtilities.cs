@@ -13,6 +13,6 @@ public class TrigUtilities : MonoBehaviour
 
     public static Vector2 DegreesToVector(float degrees)
     {
-        return new Vector2(Mathf.Sin(degrees * Mathf.Deg2Rad), Mathf.Cos(degrees * Mathf.Deg2Rad));
+        return new Vector2(Mathf.Sin(degrees * Mathf.Deg2Rad), Mathf.Cos(degrees * Mathf.Deg2Rad)).normalized;
     }
 }

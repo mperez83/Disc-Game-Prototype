@@ -24,7 +24,8 @@ public class MatchHandler : MonoBehaviour
             else newPlayer.GetComponent<SpriteRenderer>().color = Color.white;
 
             //Set player data
-            newPlayer.GetComponent<RigidbodyMovement>().SetPlayerNum(i + 1);
+            if (newPlayer.GetComponent<PlayerInput>()) newPlayer.GetComponent<PlayerInput>().SetPlayerNum(i + 1);
+            else newPlayer.GetComponent<PlayerInputRB>().SetPlayerNum(i + 1);
         }
     }
 
