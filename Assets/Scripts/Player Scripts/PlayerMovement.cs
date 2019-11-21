@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class PlayerMovement : MonoBehaviour
 {
-    public abstract void AddRecoilForce(float angle, float force);
+    public abstract void ApplyForce(float angle, float force);
 }

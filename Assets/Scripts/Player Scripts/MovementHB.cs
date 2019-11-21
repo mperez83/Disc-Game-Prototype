@@ -52,8 +52,8 @@ public class MovementHB : PlayerMovement
 
 
 
-    public override void AddRecoilForce(float angle, float force)
+    public override void ApplyForce(float angle, float force)
     {
-        rb.AddForce(-(TrigUtilities.DegreesToVector(angle) * force) * Time.deltaTime);
+        rb.AddForce(TrigUtilities.DegreesToVector(angle) * force * Time.deltaTime);
     }
 }

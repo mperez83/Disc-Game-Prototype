@@ -9,8 +9,6 @@ public class WeaponPickup : MonoBehaviour
     float deg;
     float sinVal;
 
-    public GameObject weaponPrefab;
-
     void Update()
     {
         sinVal = amplitude * Mathf.Sin(deg * Mathf.Deg2Rad);
@@ -23,8 +21,16 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerData>().GiveWeapon(weaponPrefab);
-            Destroy(gameObject);
+            //Enable weapon scripts
+            GetComponent<WeaponBase>().enabled = true;
+            other.GetComponent<PlayerData>().GiveWeapon(gameObject);
+
+            //Fix position and rotation
+            transform.localEulerAngles = new Vector3(0, 90, -90);
+
+            //Disable pickup scripts
+            Destroy(GetComponent<BoxCollider2D>());
+            Destroy(this);
         }
     }
 }

@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerData : MonoBehaviour
 {
+    public int health;
     int playerNum;
-    int health = 25;
-
     float playerAngle;
+
+    PlayerMovement playerMovement;
     WeaponBase weapon;
 
     public Color[] playerColors;
@@ -17,25 +18,59 @@ public class PlayerData : MonoBehaviour
 
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+
         //Set color
         if (playerNum >= 1 && playerNum <= 4) GetComponent<SpriteRenderer>().color = playerColors[playerNum - 1];
         else GetComponent<SpriteRenderer>().color = Color.gray;
     }
 
+    void Update()
+    {
+        //Figure out which direction the player is pointing
+        Vector2 axis = new Vector2(Input.GetAxisRaw("P" + playerNum + "_Joystick_L_Horizontal"), Input.GetAxisRaw("P" + playerNum + "_Joystick_L_Vertical"));
+        if (axis != Vector2.zero && axis.magnitude > 0.5f)
+        {
+            playerAngle = TrigUtilities.VectorToDegrees(axis);
+            transform.rotation = Quaternion.AngleAxis(-playerAngle, Vector3.forward);
+        }
+
+        //Handle input for if the player doesn't have a weapon
+        if (Input.GetButtonDown("P" + playerNum + "_Fire"))
+        {
+            if (!weapon) playerMovement.ApplyForce(playerAngle, 0.1f);
+        }
+    }
+
+
+
     public void GiveWeapon(GameObject newWeapon)
     {
         if (transform.GetChild(0)) Destroy(transform.GetChild(0).gameObject);
-        GameObject temp = Instantiate(newWeapon, transform);
-        weapon = temp.GetComponent<WeaponBase>();
+        weapon = newWeapon.GetComponent<WeaponBase>();
+
+        //Fix position of weapon
+        newWeapon.transform.parent = transform;
+        Vector2 playerDirection = TrigUtilities.DegreesToVector(playerAngle);
+        newWeapon.transform.position = transform.position + new Vector3(playerDirection.x, playerDirection.y, 0);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, float damageAngle, float damageForce)
     {
+        //Subtract from health
         health -= damage;
+
+        //Death
         if (health <= 0)
         {
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        //Normal damage
+        else
+        {
+            playerMovement.ApplyForce(damageAngle, damageForce);
         }
     }
 
@@ -47,6 +82,8 @@ public class PlayerData : MonoBehaviour
 
     public float GetPlayerAngle() { return playerAngle; }
     public void SetPlayerAngle(float angle) { playerAngle = angle; }
+
+    public PlayerMovement GetPlayerMovement() { return playerMovement; }
 
     public WeaponBase GetWeapon() { return weapon; }
 

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2155444151696214994}
   - component: {fileID: 2155444151696214995}
   - component: {fileID: 8492195047500440028}
-  - component: {fileID: 2543688324425863082}
   - component: {fileID: 2155444151696214831}
   - component: {fileID: 2155444151696214828}
   - component: {fileID: 2155444151696214829}
@@ -98,23 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9458f190e3c8742ac3ed9bcb69f996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   playerColors:
   - {r: 0.9150943, g: 0.17697577, b: 0.17697577, a: 1}
   - {r: 0.1579299, g: 0.1579299, b: 0.8584906, a: 1}
   - {r: 0.21048418, g: 0.8113208, b: 0.21048418, a: 1}
   - {r: 0.9150943, g: 0.9150943, b: 0.15970986, a: 1}
---- !u!114 &2543688324425863082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2155444151696214992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f9c5139a53b114ea96f9a344e12baa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2155444151696214831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91bb958539c49043be7bf407cbf7ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useSpeedLimit: 0
   speedLimit: 100
 --- !u!58 &2155444151696214828
 CircleCollider2D:

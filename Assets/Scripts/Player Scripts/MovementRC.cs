@@ -47,9 +47,9 @@ public class MovementRC : PlayerMovement
 
 
 
-    public override void AddRecoilForce(float angle, float force)
+    public override void ApplyForce(float angle, float force)
     {
         //Convert our angle into a vector and apply it to our current moveVector
-        moveVector -= TrigUtilities.DegreesToVector(angle) * force;
+        moveVector += TrigUtilities.DegreesToVector(angle) * force;
     }
 }

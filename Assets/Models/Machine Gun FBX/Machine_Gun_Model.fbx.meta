@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c46849f636ed81a4c92d491289a00f72
+guid: ba2dbfc8862a2cf41a7b2b3ad7dee2fb
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,13 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 9b9335d7a827b8e46a90e70b40b44178, type: 2}
+      name: Lighter metal
+    second: {fileID: 2100000, guid: 7e3f84f3e9e49c3418c71801e79887c4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 062ac9456c5a89d4aa6b083534277f7b, type: 2}
+      name: Magazine ass Magazine
+    second: {fileID: 2100000, guid: 92d09ab8e91c3b74fa58455e387722b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrel ass barrel
+    second: {fileID: 2100000, guid: bea3675c8f5718946aff3884dbdc02e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stock ass stock
+    second: {fileID: 2100000, guid: 4c980138f37686644991e4c7d476e68c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -68,7 +78,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

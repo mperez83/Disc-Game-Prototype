@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pistol : WeaponBase
+public class MachineGun : WeaponBase
 {
     protected override void FireWeapon()
     {

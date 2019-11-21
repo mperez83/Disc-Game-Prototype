@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Shotgun : WeaponBase
 {
-    public GameObject bulletPrefab;
-    public Transform bulletStartPos;
-
-    public override void FireWeapon()
+    protected override void FireWeapon()
     {
-        //Create bullets
+        //Projectile creation
         for (int i = 0; i < 5; i++)
         {
-            GameObject newBullet = Instantiate(bulletPrefab, bulletStartPos.position, Quaternion.identity);
-            newBullet.GetComponent<Bullet>().SetAngle(playerData.GetPlayerAngle() + Random.Range(-15f, 15f));
+            if (projectileData.hitscan)
+            {
+                CreateHitscanProjectile();
+            }
+            else
+            {
+
+            }
         }
 
         //Recoil
-        playerMovement.AddRecoilForce(playerData.GetPlayerAngle(), 0.5f);
+        playerData.GetPlayerMovement().ApplyForce(playerData.GetPlayerAngle() + 180f, recoilStrength);
     }
 }

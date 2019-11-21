@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovementRB : PlayerMovement
 {
+    public bool useSpeedLimit;
     public float speedLimit;
     Rigidbody2D rb;
 
@@ -21,10 +22,14 @@ public class MovementRB : PlayerMovement
         };
     }
 
-    public override void AddRecoilForce(float angle, float force)
+    public override void ApplyForce(float angle, float force)
     {
-        rb.AddForce(-(TrigUtilities.DegreesToVector(angle) * force) * Time.deltaTime);
-        //if (rb.velocity.magnitude > speedLimit)
-            //rb.velocity = Vector2.ClampMagnitude(rb.velocity, speedLimit);
+        rb.AddForce(TrigUtilities.DegreesToVector(angle) * force * Time.deltaTime);
+
+        if (useSpeedLimit)
+        {
+            if (rb.velocity.magnitude > speedLimit)
+                rb.velocity = Vector2.ClampMagnitude(rb.velocity, speedLimit);
+        }
     }
 }
