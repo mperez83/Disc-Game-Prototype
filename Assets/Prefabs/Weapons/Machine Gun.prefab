@@ -98,7 +98,8 @@ MonoBehaviour:
   recoilStrength: 0.1
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
-  physicalProjectilePrefab: {fileID: 0}
+  physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
+    type: 3}
 --- !u!114 &2931835158375702784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,11 +112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitscan: 1
   damage: 1
   damageForce: 0.5
+  canHitOwner: 1
+  bounces: 1
+  hitscan: 0
   decayTimerLength: 0.05
-  bounces: 0
+  velocityMagnitude: 20
 --- !u!33 &7183144566955305274
 MeshFilter:
   m_ObjectHideFlags: 0

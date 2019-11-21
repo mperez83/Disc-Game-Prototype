@@ -7,14 +7,7 @@ public class MachineGun : WeaponBase
     protected override void FireWeapon()
     {
         //Projectile creation
-        if (projectileData.hitscan)
-        {
-            CreateHitscanProjectile();
-        }
-        else
-        {
-
-        }
+        CreateProjectile();
 
         //Recoil
         playerData.GetPlayerMovement().ApplyForce(playerData.GetPlayerAngle() + 180f, recoilStrength);

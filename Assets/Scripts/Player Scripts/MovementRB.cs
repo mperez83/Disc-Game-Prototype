@@ -15,7 +15,7 @@ public class MovementRB : PlayerMovement
 
     void Update()
     {
-        if (GameManager.instance.IsPositionOutOfBounds(new Vector2(transform.position.x, transform.position.y)))
+        if (GameManager.instance.IsTransformOffCamera(transform))
         {
             transform.position = new Vector2(0, 0);
             print("Zoop!");

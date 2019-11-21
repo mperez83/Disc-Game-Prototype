@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6703164095989002855}
   - component: {fileID: 3786741600101236607}
   m_Layer: 0
-  m_Name: Hitscan
+  m_Name: Hitscan Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7c4232343b81c4398769d4dd98826a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionMask:
+  playerCollisionMask:
+    serializedVersion: 2
+    m_Bits: 512
+  wallCollisionMask:
     serializedVersion: 2
     m_Bits: 256
 --- !u!120 &3786741600101236607

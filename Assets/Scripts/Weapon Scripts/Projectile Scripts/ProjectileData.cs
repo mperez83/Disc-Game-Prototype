@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class ProjectileData : MonoBehaviour
 {
-    public bool hitscan;
-
+    //General properties
     public int damage;
     public float damageForce;
+    public bool canHitOwner;
+    public int bounces;
 
+    public bool hitscan;
+
+    //Hitscan properties
     public float decayTimerLength;
     float decayTimer;
 
-    public int bounces;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    //Physical properties
+    public float velocityMagnitude;
 }

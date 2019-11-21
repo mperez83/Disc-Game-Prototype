@@ -46,7 +46,10 @@ public class PlayerData : MonoBehaviour
 
     public void GiveWeapon(GameObject newWeapon)
     {
-        if (transform.GetChild(0)) Destroy(transform.GetChild(0).gameObject);
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         weapon = newWeapon.GetComponent<WeaponBase>();
 
         //Fix position of weapon

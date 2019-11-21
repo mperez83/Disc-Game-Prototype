@@ -7,10 +7,14 @@ public class HitscanProjectile : ProjectileBase
     LineRenderer lineRend;
     float initialWidth;
 
+    int vertexNum;
+    Vector2 vertexStart;
+
     float decayTimerLength;
     float decayTimer;
 
-    public LayerMask collisionMask;
+    public LayerMask playerCollisionMask;
+    public LayerMask wallCollisionMask;
 
 
 
@@ -20,47 +24,50 @@ public class HitscanProjectile : ProjectileBase
         lineRend.positionCount = 2 + bounces;
         initialWidth = lineRend.startWidth;
 
+        lineRend.startColor = color;
+        lineRend.endColor = color;
+
         decayTimer = decayTimerLength;
 
-        int vertexNum = 0;
-        Vector2 vertexStart = transform.position;
-        Vector2 direction = TrigUtilities.DegreesToVector(angle);
+        vertexNum = 0;
+        vertexStart = transform.position;
 
         do
         {
 
-            RaycastHit2D hit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, collisionMask);
+            RaycastHit2D playerHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, playerCollisionMask);
+            RaycastHit2D wallHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, wallCollisionMask);
 
-            //If we hit something, draw the bullet hitting whatever we hit
-            if (hit)
+            if (playerHit && (playerHit.collider.gameObject != owner || canHitOwner))
             {
-                //Draw our current hitscan start and end
-                lineRend.SetPosition(vertexNum, vertexStart);
-                lineRend.SetPosition(vertexNum + 1, hit.point);
-
-                //If we hit the player, end the bullet
-                if (hit.transform.CompareTag("Player"))
+                if (wallHit)
                 {
-                    hit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
-                    lineRend.positionCount = 2 + vertexNum;
-                    break;
+                    if (wallHit.distance > playerHit.distance)
+                    {
+                        HandlePlayerHit(playerHit);
+                        break;
+                    }
+                    else
+                    {
+                        HandleWallHit(wallHit);
+                    }
                 }
-
-                //Otherwise, calculate the next bounce (if it's the last bounce, we don't end up using this data)
                 else
                 {
-                    bounces--;
-                    vertexNum++;
-                    vertexStart = hit.point;
-                    direction = Vector2.Reflect(direction, hit.normal);
+                    HandlePlayerHit(playerHit);
                 }
             }
 
-            //If we shot off into infinity, draw a really long bullet
+            else if (wallHit)
+            {
+                HandleWallHit(wallHit);
+            }
+
             else
             {
                 lineRend.SetPosition(vertexNum, vertexStart);
                 lineRend.SetPosition(vertexNum + 1, vertexStart + (direction * 25));
+
                 lineRend.positionCount = 2 + vertexNum;
                 break;
             }
@@ -76,6 +83,28 @@ public class HitscanProjectile : ProjectileBase
 
         decayTimer -= Time.deltaTime;
         if (decayTimer <= 0) Destroy(gameObject);
+    }
+
+
+
+    void HandlePlayerHit(RaycastHit2D playerHit)
+    {
+        lineRend.SetPosition(vertexNum, vertexStart);
+        lineRend.SetPosition(vertexNum + 1, playerHit.point);
+
+        playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
+        lineRend.positionCount = 2 + vertexNum;
+    }
+
+    void HandleWallHit(RaycastHit2D wallHit)
+    {
+        lineRend.SetPosition(vertexNum, vertexStart);
+        lineRend.SetPosition(vertexNum + 1, wallHit.point);
+
+        bounces--;
+        vertexNum++;
+        vertexStart = wallHit.point;
+        direction = Vector2.Reflect(direction, wallHit.normal);
     }
 
 

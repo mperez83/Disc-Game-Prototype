@@ -65,15 +65,37 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected abstract void FireWeapon();
 
-    protected virtual void CreateHitscanProjectile()
+    protected virtual void CreateProjectile()
     {
-        GameObject newBullet = Instantiate(hitscanProjectilePrefab, projectileStartPos.position, Quaternion.identity);
-        HitscanProjectile hitscanProjectile = newBullet.GetComponent<HitscanProjectile>();
+        //Create basic projectile
+        GameObject newBullet;
+        if (projectileData.hitscan) newBullet = Instantiate(hitscanProjectilePrefab, projectileStartPos.position, Quaternion.identity);
+        else newBullet = Instantiate(physicalProjectilePrefab, projectileStartPos.position, Quaternion.identity);
+        ProjectileBase projectile = newBullet.GetComponent<ProjectileBase>();
 
-        hitscanProjectile.SetAngle(playerData.GetPlayerAngle() + Random.Range(-accuracyDegreeOffsetRange, accuracyDegreeOffsetRange));
-        hitscanProjectile.SetDamage(projectileData.damage);
-        hitscanProjectile.SetDamageForce(projectileData.damageForce);
+        //Set general properties
+        projectile.SetDirection(TrigUtilities.DegreesToVector(playerData.GetPlayerAngle() + Random.Range(-accuracyDegreeOffsetRange, accuracyDegreeOffsetRange)));
+        projectile.SetDamage(projectileData.damage);
+        projectile.SetDamageForce(projectileData.damageForce);
+        projectile.SetOwner(playerData.gameObject);
+        projectile.SetCanHitOwner(projectileData.canHitOwner);
+        projectile.SetColor(playerData.GetComponent<SpriteRenderer>().GetModifiedBrightness(3f));
+        projectile.SetBounces(projectileData.bounces);
+
+        //Set properties depending on if it's hitscan or physical
+        if (projectileData.hitscan) SetHitscanProperties(newBullet);
+        else SetPhysicalProperties(newBullet);
+    }
+
+    void SetHitscanProperties(GameObject bullet)
+    {
+        HitscanProjectile hitscanProjectile = bullet.GetComponent<HitscanProjectile>();
         hitscanProjectile.SetDecayTimerLength(projectileData.decayTimerLength);
-        hitscanProjectile.SetBounces(projectileData.bounces);
+    }
+
+    void SetPhysicalProperties(GameObject bullet)
+    {
+        PhysicalProjectile physicalProjectile = bullet.GetComponent<PhysicalProjectile>();
+        physicalProjectile.SetVelocityMagnitude(projectileData.velocityMagnitude);
     }
 }

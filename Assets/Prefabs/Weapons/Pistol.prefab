@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707439719964082373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03984, z: 0}
+  m_LocalPosition: {x: -3.984, y: 0.119, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4100010435331852068}
@@ -93,12 +93,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileStartPos: {fileID: 7356801822013344659}
   automatic: 0
-  shootTimerLength: 0.25
-  accuracyDegreeOffsetRange: 3
+  shootTimerLength: 0.1
+  accuracyDegreeOffsetRange: 2.5
   recoilStrength: 0.25
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
-  physicalProjectilePrefab: {fileID: 0}
+  physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
+    type: 3}
 --- !u!114 &6656102356305849662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,11 +112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitscan: 1
   damage: 3
   damageForce: 1
+  canHitOwner: 0
+  bounces: 2
+  hitscan: 1
   decayTimerLength: 0.2
-  bounces: 1
+  velocityMagnitude: 20
 --- !u!33 &8345817584639828733
 MeshFilter:
   m_ObjectHideFlags: 0
