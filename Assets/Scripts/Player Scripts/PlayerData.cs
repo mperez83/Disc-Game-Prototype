@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PlayerData : MonoBehaviour
 {
     public int health;
+    int maxHealth;
+    public Image healthbarImage;
+
     int playerNum;
     float playerAngle;
 
@@ -23,11 +27,13 @@ public class PlayerData : MonoBehaviour
         //Set color
         if (playerNum >= 1 && playerNum <= 4) GetComponent<SpriteRenderer>().color = playerColors[playerNum - 1];
         else GetComponent<SpriteRenderer>().color = Color.gray;
+
+        maxHealth = health;
     }
 
     void Update()
     {
-        //Figure out which direction the player is pointing
+        //Update rotation based on player input
         Vector2 axis = new Vector2(Input.GetAxisRaw("P" + playerNum + "_Joystick_L_Horizontal"), Input.GetAxisRaw("P" + playerNum + "_Joystick_L_Vertical"));
         if (axis != Vector2.zero && axis.magnitude > 0.5f)
         {
@@ -38,7 +44,7 @@ public class PlayerData : MonoBehaviour
         //Handle input for if the player doesn't have a weapon
         if (Input.GetButtonDown("P" + playerNum + "_Fire"))
         {
-            if (!weapon) playerMovement.ApplyForce(playerAngle, 0.1f);
+            if (!weapon) playerMovement.ApplyForce(playerAngle, 1f);
         }
     }
 
@@ -46,10 +52,7 @@ public class PlayerData : MonoBehaviour
 
     public void GiveWeapon(GameObject newWeapon)
     {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
+        if (weapon) Destroy(weapon.gameObject);
         weapon = newWeapon.GetComponent<WeaponBase>();
 
         //Fix position of weapon
@@ -74,6 +77,7 @@ public class PlayerData : MonoBehaviour
         else
         {
             playerMovement.ApplyForce(damageAngle, damageForce);
+            healthbarImage.fillAmount = ((float)health / maxHealth);
         }
     }
 
@@ -85,6 +89,8 @@ public class PlayerData : MonoBehaviour
 
     public float GetPlayerAngle() { return playerAngle; }
     public void SetPlayerAngle(float angle) { playerAngle = angle; }
+
+    public Vector2 GetPlayerDirection() { return TrigUtilities.DegreesToVector(playerAngle); }
 
     public PlayerMovement GetPlayerMovement() { return playerMovement; }
 

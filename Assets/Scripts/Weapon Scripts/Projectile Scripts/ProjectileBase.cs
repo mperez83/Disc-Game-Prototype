@@ -17,6 +17,9 @@ public class ProjectileBase : MonoBehaviour
 
     //Special properties shared by both hitscan and physical projectiles
     protected int bounces;
+    protected bool causeExplosion;
+    protected float explosionRadius;
+    protected bool explodeEveryBounce;
     
     //Getters/Setters
     public void SetDirection(Vector2 temp) { direction = temp; }
@@ -26,4 +29,7 @@ public class ProjectileBase : MonoBehaviour
     public void SetCanHitOwner(bool temp) { canHitOwner = temp; }
     public void SetColor(Color temp) { color = temp; }
     public void SetBounces(int temp) { bounces = temp; }
+    public void SetExplosionRadius(float temp) { explosionRadius = temp; }
+    public void SetCauseExplosion(bool temp) { causeExplosion = temp; }
+    public void SetExplodeEveryBounce(bool temp) { explodeEveryBounce = temp; }
 }

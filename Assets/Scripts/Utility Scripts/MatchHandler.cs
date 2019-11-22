@@ -19,7 +19,7 @@ public class MatchHandler : MonoBehaviour
             currentSpawnPoint = (currentSpawnPoint < (spawnPoints.Length - 1)) ? currentSpawnPoint + 1 : 0;
 
             //Set player data
-            newPlayer.GetComponent<PlayerData>().SetPlayerNum(i + 1);
+            newPlayer.GetComponentInChildren<PlayerData>().SetPlayerNum(i + 1);
         }
     }
 }

@@ -10,8 +10,12 @@ public class HitscanProjectile : ProjectileBase
     int vertexNum;
     Vector2 vertexStart;
 
+    bool fadingOut;
+
+    //Hitscan properties
     float decayTimerLength;
     float decayTimer;
+    bool instantTravel;
 
     public LayerMask playerCollisionMask;
     public LayerMask wallCollisionMask;
@@ -21,7 +25,6 @@ public class HitscanProjectile : ProjectileBase
     void Start()
     {
         lineRend = GetComponent<LineRenderer>();
-        lineRend.positionCount = 2 + bounces;
         initialWidth = lineRend.startWidth;
 
         lineRend.startColor = color;
@@ -32,60 +35,81 @@ public class HitscanProjectile : ProjectileBase
         vertexNum = 0;
         vertexStart = transform.position;
 
-        do
+        if (instantTravel)
         {
+            lineRend.positionCount = 2 + bounces;
 
-            RaycastHit2D playerHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, playerCollisionMask);
-            RaycastHit2D wallHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, wallCollisionMask);
-
-            if (playerHit && (playerHit.collider.gameObject != owner || canHitOwner))
+            do
             {
-                if (wallHit)
-                {
-                    if (wallHit.distance > playerHit.distance)
-                    {
-                        HandlePlayerHit(playerHit);
-                        break;
-                    }
-                    else
-                    {
-                        HandleWallHit(wallHit);
-                    }
-                }
-                else
-                {
-                    HandlePlayerHit(playerHit);
-                }
-            }
-
-            else if (wallHit)
-            {
-                HandleWallHit(wallHit);
-            }
-
-            else
-            {
-                lineRend.SetPosition(vertexNum, vertexStart);
-                lineRend.SetPosition(vertexNum + 1, vertexStart + (direction * 25));
-
-                lineRend.positionCount = 2 + vertexNum;
-                break;
-            }
-
-        } while (bounces >= 0);
+                CastRays();
+            } while (!fadingOut);
+        }
+        else
+        {
+            lineRend.positionCount = 2;
+        }
     }
 
     void Update()
     {
-        float newWidth = initialWidth * (decayTimer / decayTimerLength);
-        lineRend.startWidth = newWidth;
-        lineRend.endWidth = newWidth;
+        if (fadingOut)
+        {
+            float newWidth = initialWidth * (decayTimer / decayTimerLength);
+            lineRend.startWidth = newWidth;
+            lineRend.endWidth = newWidth;
 
-        decayTimer -= Time.deltaTime;
-        if (decayTimer <= 0) Destroy(gameObject);
+            decayTimer -= Time.deltaTime;
+            if (decayTimer <= 0) Destroy(gameObject);
+        }
+        else
+        {
+            CastRays();
+        }
     }
 
 
+
+    void CastRays()
+    {
+        RaycastHit2D playerHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, playerCollisionMask);
+        RaycastHit2D wallHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, wallCollisionMask);
+
+        //If we hit a player
+        if (playerHit && (playerHit.collider.gameObject != owner || canHitOwner))
+        {
+            if (wallHit)
+            {
+                if (wallHit.distance > playerHit.distance)
+                {
+                    HandlePlayerHit(playerHit);
+                }
+                else
+                {
+                    HandleWallHit(wallHit);
+                }
+            }
+            else
+            {
+                HandlePlayerHit(playerHit);
+            }
+        }
+
+        //If we hit a wall
+        else if (wallHit)
+        {
+            HandleWallHit(wallHit);
+        }
+
+        //If we shot off into infinity
+        else
+        {
+            lineRend.SetPosition(vertexNum, vertexStart);
+            lineRend.SetPosition(vertexNum + 1, vertexStart + (direction * 25));
+
+            lineRend.positionCount = 2 + vertexNum;
+            fadingOut = true;
+        }
+    }
 
     void HandlePlayerHit(RaycastHit2D playerHit)
     {
@@ -94,6 +118,11 @@ public class HitscanProjectile : ProjectileBase
 
         playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
         lineRend.positionCount = 2 + vertexNum;
+
+        fadingOut = true;
+
+        if (causeExplosion)
+            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damageForce * 5, explosionRadius);
     }
 
     void HandleWallHit(RaycastHit2D wallHit)
@@ -101,13 +130,25 @@ public class HitscanProjectile : ProjectileBase
         lineRend.SetPosition(vertexNum, vertexStart);
         lineRend.SetPosition(vertexNum + 1, wallHit.point);
 
+        if (causeExplosion)
+            if (explodeEveryBounce || bounces == 0)
+                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damageForce * 5, explosionRadius);
+
         bounces--;
-        vertexNum++;
-        vertexStart = wallHit.point;
-        direction = Vector2.Reflect(direction, wallHit.normal);
+        if (bounces >= 0)
+        {
+            if (instantTravel) vertexNum++;
+            vertexStart = wallHit.point;
+            direction = Vector2.Reflect(direction, wallHit.normal);
+        }
+        else
+        {
+            fadingOut = true;
+        }
     }
 
 
 
     public void SetDecayTimerLength(float temp) { decayTimerLength = temp; }
+    public void SetInstantTravel(bool temp) { instantTravel = temp; }
 }

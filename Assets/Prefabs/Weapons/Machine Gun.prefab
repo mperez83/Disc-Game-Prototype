@@ -95,7 +95,7 @@ MonoBehaviour:
   automatic: 1
   shootTimerLength: 0.1
   accuracyDegreeOffsetRange: 5
-  recoilStrength: 0.1
+  recoilStrength: 20
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
   physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
@@ -113,11 +113,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  damageForce: 0.5
+  damageForce: 10
   canHitOwner: 1
   bounces: 1
+  causeExplosion: 0
+  explosionRadius: 0
+  explodeEveryBounce: 0
   hitscan: 0
   decayTimerLength: 0.05
+  instantTravel: 0
   velocityMagnitude: 20
 --- !u!33 &7183144566955305274
 MeshFilter:

@@ -33,32 +33,25 @@ public class PhysicalProjectile : ProjectileBase
         //Collision movement
         if (hit && lastColliderHit != hit.collider)
         {
-            //If we hit a player
-            if (hit.collider.CompareTag("Player") && (hit.collider.gameObject != owner || (hit.collider.gameObject == owner && canHitOwner)))
-            {
-                hit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce);
-                Destroy(gameObject);
-            }
+            if (causeExplosion)
+                if (explodeEveryBounce || bounces == 0)
+                    ObjectPooler.instance.SpawnExplosionFromPool(hit.point, damageForce * 5, explosionRadius);
 
-            //If we hit a wall
+            if (bounces > 0)
+            {
+                bounces--;
+
+                lastColliderHit = hit.collider;
+                transform.Translate(moveVector.normalized * hit.distance, Space.World);
+
+                //The magic ingredient for applying normal surface reflections
+                //v' = 2 * (v . n) * n - v;
+                moveVector = 2 * (Vector2.Dot(moveVector, hit.normal.normalized)) * hit.normal.normalized - moveVector;
+                moveVector *= -1;
+            }
             else
             {
-                if (bounces > 0)
-                {
-                    bounces--;
-
-                    lastColliderHit = hit.collider;
-                    transform.Translate(moveVector.normalized * hit.distance, Space.World);
-
-                    //The magic ingredient for applying normal surface reflections
-                    //v' = 2 * (v . n) * n - v;
-                    moveVector = 2 * (Vector2.Dot(moveVector, hit.normal.normalized)) * hit.normal.normalized - moveVector;
-                    moveVector *= -1;
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
         }
 
@@ -79,6 +72,9 @@ public class PhysicalProjectile : ProjectileBase
     {
         if (other.CompareTag("Player") && (other.gameObject != owner || canHitOwner))
         {
+            if (causeExplosion)
+                ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damageForce * 5, explosionRadius);
+
             other.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce);
             Destroy(gameObject);
         }

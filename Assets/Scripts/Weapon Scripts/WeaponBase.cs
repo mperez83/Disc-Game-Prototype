@@ -81,6 +81,9 @@ public abstract class WeaponBase : MonoBehaviour
         projectile.SetCanHitOwner(projectileData.canHitOwner);
         projectile.SetColor(playerData.GetComponent<SpriteRenderer>().GetModifiedBrightness(3f));
         projectile.SetBounces(projectileData.bounces);
+        projectile.SetCauseExplosion(projectileData.causeExplosion);
+        projectile.SetExplosionRadius(projectileData.explosionRadius);
+        projectile.SetExplodeEveryBounce(projectileData.explodeEveryBounce);
 
         //Set properties depending on if it's hitscan or physical
         if (projectileData.hitscan) SetHitscanProperties(newBullet);
@@ -91,6 +94,7 @@ public abstract class WeaponBase : MonoBehaviour
     {
         HitscanProjectile hitscanProjectile = bullet.GetComponent<HitscanProjectile>();
         hitscanProjectile.SetDecayTimerLength(projectileData.decayTimerLength);
+        hitscanProjectile.SetInstantTravel(projectileData.instantTravel);
     }
 
     void SetPhysicalProperties(GameObject bullet)
