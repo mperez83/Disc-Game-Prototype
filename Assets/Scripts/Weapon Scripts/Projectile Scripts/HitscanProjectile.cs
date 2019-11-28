@@ -35,6 +35,33 @@ public class HitscanProjectile : ProjectileBase
         vertexNum = 0;
         vertexStart = transform.position;
 
+        //Check if we spawned a bullet in something
+        Collider2D[] colliders = Physics2D.OverlapPointAll(transform.position);
+        foreach (Collider2D collider in colliders)
+        {
+            //Bullet owner
+            if (collider.gameObject == owner)
+            {
+                //Do nothing?
+            }
+
+            //Other player
+            else if (collider.CompareTag("Player"))
+            {
+                if (causeExplosion)
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                Destroy(gameObject);
+            }
+
+            //Wall
+            else
+            {
+                if (causeExplosion)
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                Destroy(gameObject);
+            }
+        }
+
         if (instantTravel)
         {
             lineRend.positionCount = 2 + bounces;
@@ -115,14 +142,14 @@ public class HitscanProjectile : ProjectileBase
     {
         lineRend.SetPosition(vertexNum, vertexStart);
         lineRend.SetPosition(vertexNum + 1, playerHit.point);
-
-        playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
         lineRend.positionCount = 2 + vertexNum;
 
         fadingOut = true;
 
         if (causeExplosion)
-            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damageForce * 5, explosionRadius);
+            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+        else
+            playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
     }
 
     void HandleWallHit(RaycastHit2D wallHit)
@@ -132,7 +159,7 @@ public class HitscanProjectile : ProjectileBase
 
         if (causeExplosion)
             if (explodeEveryBounce || bounces == 0)
-                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damageForce * 5, explosionRadius);
+                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
 
         bounces--;
         if (bounces >= 0)

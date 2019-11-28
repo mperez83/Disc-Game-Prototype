@@ -5,8 +5,11 @@ using UnityEngine;
 public class Explosion : MonoBehaviour, IPooledObject
 {
     public float duration;
+
+    float explosionDamage;
     float explosionForce;
     float explosionRadius;
+    GameObject objThatIgnoresDamage;
 
     SpriteRenderer sr;
 
@@ -26,7 +29,18 @@ public class Explosion : MonoBehaviour, IPooledObject
                 CircleCollider2D playerCollider = collider.GetComponent<CircleCollider2D>();
 
                 //Add the player's radius to the explosion radius because the distance between the explosion and the player might be farther than the explosion radius
-                collider.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius + playerCollider.radius);
+                float updatedExplosionRadius = explosionRadius + playerCollider.radius;
+
+                //Apply force
+                collider.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, updatedExplosionRadius);
+
+                //Apply damage
+                if (collider.gameObject != objThatIgnoresDamage)
+                {
+                    float distance = Vector2.Distance(transform.position, collider.transform.position);
+                    int damage = (int)Mathf.Ceil(explosionDamage * (updatedExplosionRadius - distance) / updatedExplosionRadius);
+                    collider.GetComponent<PlayerData>().TakeDamage(damage, 0, 0);
+                }
             }
         }
 
@@ -62,6 +76,8 @@ public class Explosion : MonoBehaviour, IPooledObject
         }
     }
 
+    public void SetExplosionDamage(int temp) { explosionDamage = temp; }
     public void SetExplosionForce(float temp) { explosionForce = temp; }
     public void SetExplosionRadius(float temp) { explosionRadius = temp; }
+    public void SetObjThatIgnoresDamage(GameObject temp) { objThatIgnoresDamage = temp; }
 }

@@ -9,6 +9,7 @@ public class PhysicalProjectile : ProjectileBase
     Vector2 moveVector;
     Collider2D lastColliderHit;
     float actualRadius;
+    bool safetyTrigger;
 
     public LayerMask collisionMask;
 
@@ -22,6 +23,36 @@ public class PhysicalProjectile : ProjectileBase
         moveVector = direction * velocityMagnitude;
         GetComponent<SpriteRenderer>().color = color;
         actualRadius = circleCollider.radius * transform.localScale.x;
+
+        //Figure out what to do if the bullet spawned inside of something
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * transform.localScale.x);
+        foreach (Collider2D collider in colliders)
+        {
+            //This bullet
+            if (collider == circleCollider) continue;
+
+            //Bullet owner
+            if (collider.gameObject == owner)
+            {
+                safetyTrigger = true;
+            }
+
+            //Other player
+            else if (collider.CompareTag("Player"))
+            {
+                if (causeExplosion)
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                Destroy(gameObject);
+            }
+
+            //Wall
+            else
+            {
+                if (causeExplosion)
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                Destroy(gameObject);
+            }
+        }
     }
 
     void Update()
@@ -35,7 +66,7 @@ public class PhysicalProjectile : ProjectileBase
         {
             if (causeExplosion)
                 if (explodeEveryBounce || bounces == 0)
-                    ObjectPooler.instance.SpawnExplosionFromPool(hit.point, damageForce * 5, explosionRadius);
+                    ObjectPooler.instance.SpawnExplosionFromPool(hit.point, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
 
             if (bounces > 0)
             {
@@ -70,13 +101,22 @@ public class PhysicalProjectile : ProjectileBase
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && (other.gameObject != owner || canHitOwner))
+        if (other.CompareTag("Player") && (other.gameObject != owner || (canHitOwner && !safetyTrigger)))
         {
             if (causeExplosion)
-                ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damageForce * 5, explosionRadius);
+                ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+            else
+                other.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce);
 
-            other.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce);
             Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            safetyTrigger = false;
         }
     }
 

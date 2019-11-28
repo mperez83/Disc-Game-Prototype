@@ -58,7 +58,8 @@ public class PlayerData : MonoBehaviour
         //Fix position of weapon
         newWeapon.transform.parent = transform;
         Vector2 playerDirection = TrigUtilities.DegreesToVector(playerAngle);
-        newWeapon.transform.position = transform.position + new Vector3(playerDirection.x, playerDirection.y, 0);
+        //newWeapon.transform.position = transform.position + new Vector3(playerDirection.x, playerDirection.y, 0);
+        newWeapon.transform.position = transform.position;
     }
 
     public void TakeDamage(int damage, float damageAngle, float damageForce)
