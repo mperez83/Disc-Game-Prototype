@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
+
+#if UNITY_EDITOR
 using UnityEditor.UIElements;
+#endif
 
 public class ProjectileData : MonoBehaviour
 {
@@ -30,7 +33,7 @@ public class ProjectileData : MonoBehaviour
 }
 
 
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(ProjectileData))]
 public class MyScriptEditor : Editor
 {
@@ -114,3 +117,4 @@ public class MyScriptEditor : Editor
         serializedObject.ApplyModifiedProperties(); //Take the serialized object stream and apply it to the actual class
     }
 }
+#endif

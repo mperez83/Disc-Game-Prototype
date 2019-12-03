@@ -10,11 +10,14 @@ public class PlayerData : MonoBehaviour
     int maxHealth;
     public Image healthbarImage;
 
-    int playerNum;
+    public int playerNum;
     float playerAngle;
 
+    SpriteRenderer sr;
     PlayerMovement playerMovement;
     WeaponBase weapon;
+
+    public SpriteRenderer directionIndicator;
 
     public Color[] playerColors;
 
@@ -22,11 +25,14 @@ public class PlayerData : MonoBehaviour
 
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerMovement>();
 
         //Set color
-        if (playerNum >= 1 && playerNum <= 4) GetComponent<SpriteRenderer>().color = playerColors[playerNum - 1];
-        else GetComponent<SpriteRenderer>().color = Color.gray;
+        if (playerNum >= 1 && playerNum <= 4) sr.color = playerColors[playerNum - 1];
+        else sr.color = Color.gray;
+
+        directionIndicator.color = Color.yellow;
 
         maxHealth = health;
     }

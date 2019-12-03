@@ -4,12 +4,5 @@ using UnityEngine;
 
 public class LaserGun : WeaponBase
 {
-    protected override void FireWeapon()
-    {
-        //Projectile creation
-        CreateProjectile();
-
-        //Recoil
-        playerData.GetPlayerMovement().ApplyForce(playerData.GetPlayerAngle() + 180f, recoilStrength);
-    }
+    
 }

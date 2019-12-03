@@ -91,7 +91,7 @@ MonoBehaviour:
   explodeEveryBounce: 0
   hitscan: 1
   decayTimerLength: 0.35
-  instantTravel: 0
+  instantTravel: 1
   velocityMagnitude: 15
 --- !u!33 &6735620463037385825
 MeshFilter:

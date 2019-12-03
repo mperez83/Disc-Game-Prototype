@@ -63,7 +63,15 @@ public abstract class WeaponBase : MonoBehaviour
 
 
 
-    protected abstract void FireWeapon();
+    protected virtual void FireWeapon()
+    {
+        //Projectile creation
+        CreateProjectile();
+
+        //Recoil
+        if (!playerData.GetPlayerMovement().GetBraking())
+            playerData.GetPlayerMovement().ApplyForce(playerData.GetPlayerAngle() + 180f, recoilStrength);
+    }
 
     protected virtual void CreateProjectile()
     {
