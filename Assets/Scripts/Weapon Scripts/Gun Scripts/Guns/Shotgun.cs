@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : WeaponBase
+public class Shotgun : GunBase
 {
     protected override void FireWeapon()
     {
@@ -10,7 +10,7 @@ public class Shotgun : WeaponBase
         for (int i = 0; i < 5; i++) CreateProjectile();
 
         //Recoil
-        if (!playerData.GetPlayerMovement().GetBraking())
-            playerData.GetPlayerMovement().ApplyForce(playerData.GetPlayerAngle() + 180f, recoilStrength);
+        if (!owner.GetPlayerMovement().GetBraking())
+            owner.GetPlayerMovement().ApplyForce(owner.GetPlayerAngle() + 180f, recoilStrength);
     }
 }

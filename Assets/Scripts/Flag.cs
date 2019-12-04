@@ -11,7 +11,7 @@ public class Flag : MonoBehaviour
     Queue<Vector3> followQueue;
     bool filledQueue;
     Vector3 vel;
-    float smoothFactor = 0.15f;
+    float smoothFactor = 0.1f;
 
     public PlayerData playerData;
 

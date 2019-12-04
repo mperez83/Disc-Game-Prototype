@@ -39,27 +39,26 @@ public class HitscanProjectile : ProjectileBase
         Collider2D[] colliders = Physics2D.OverlapPointAll(transform.position);
         foreach (Collider2D collider in colliders)
         {
-            //Bullet owner
-            if (collider.gameObject == owner)
-            {
-                //Do nothing?
-            }
-
             //Other player
-            else if (collider.CompareTag("Player"))
+            if (collider.CompareTag("Player") && collider.gameObject != owner)
             {
                 if (causeExplosion)
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                else
+                    collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
                 Destroy(gameObject);
             }
 
             //Wall
-            else
+            else if (collider.CompareTag("Wall"))
             {
                 if (causeExplosion)
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
                 Destroy(gameObject);
             }
+
+            //Everything else
+            else continue;
         }
 
         if (instantTravel)

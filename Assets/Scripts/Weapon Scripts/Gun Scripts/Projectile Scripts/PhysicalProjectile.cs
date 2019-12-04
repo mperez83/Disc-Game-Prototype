@@ -31,26 +31,28 @@ public class PhysicalProjectile : ProjectileBase
             //This bullet
             if (collider == circleCollider) continue;
 
-            //Bullet owner
-            if (collider.gameObject == owner)
-            {
-                safetyTrigger = true;
-            }
-
             //Other player
-            else if (collider.CompareTag("Player"))
+            if (collider.CompareTag("Player") && collider.gameObject != owner)
             {
                 if (causeExplosion)
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                else
+                    collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
                 Destroy(gameObject);
             }
 
             //Wall
-            else
+            else if (collider.CompareTag("Wall"))
             {
                 if (causeExplosion)
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
                 Destroy(gameObject);
+            }
+
+            //Everything else
+            else
+            {
+                safetyTrigger = true;
             }
         }
     }

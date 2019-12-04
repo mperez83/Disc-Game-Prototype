@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class GunPickup : MonoBehaviour
 {
     float amplitude = 30;
     float period = 5;
@@ -22,7 +22,7 @@ public class WeaponPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //Enable weapon scripts
-            GetComponent<WeaponBase>().enabled = true;
+            GetComponent<GunBase>().enabled = true;
             other.GetComponent<PlayerData>().GiveWeapon(gameObject);
 
             //Fix position and rotation

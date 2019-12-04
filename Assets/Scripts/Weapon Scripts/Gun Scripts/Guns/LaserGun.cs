@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachineGun : WeaponBase
+public class LaserGun : GunBase
 {
     
 }
