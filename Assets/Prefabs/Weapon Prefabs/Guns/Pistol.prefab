@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707439719964082373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2693, y: 0.093, z: 0}
+  m_LocalPosition: {x: -3.984, y: 0.119, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4100010435331852068}
@@ -40,13 +40,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4100010435331852068}
   - component: {fileID: 5866881359831099897}
-  - component: {fileID: 7860745836412802157}
+  - component: {fileID: 7532489414214312476}
   - component: {fileID: 6656102356305849662}
   - component: {fileID: 8345817584639828733}
   - component: {fileID: 939475538478942054}
   - component: {fileID: 5866881359831099898}
   m_Layer: 0
-  m_Name: Laser Gun
+  m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 5866881359831099896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: -1}
+  m_LocalScale: {x: 0.07, y: 0.07, z: -0.07}
   m_Children:
   - {fileID: 7356801822013344659}
   m_Father: {fileID: 0}
@@ -79,7 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e35ca2e47b9dae46b907ae69fb064cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7860745836412802157
+  weapon: {fileID: 7532489414214312476}
+--- !u!114 &7532489414214312476
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,14 +89,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5866881359831099896}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6c2249a1f83814584fecf318121b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f3ba38e237a7104e84ff57b56d771d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileStartPos: {fileID: 7356801822013344659}
-  automatic: 1
-  shootTimerLength: 1
-  accuracyDegreeOffsetRange: 5
-  recoilStrength: 25
+  automatic: 0
+  shootTimerLength: 0.1
+  accuracyDegreeOffsetRange: 2.5
+  recoilStrength: 150
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
   physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
@@ -112,16 +113,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  damageForce: 5
+  damage: 3
+  damageForce: 75
   canHitOwner: 0
-  bounces: 5
-  causeExplosion: 1
-  explosionRadius: 1
+  bounces: 1
+  causeExplosion: 0
+  explosionRadius: 0
   explodeEveryBounce: 0
   hitscan: 1
-  decayTimerLength: 0.5
-  instantTravel: 1
+  decayTimerLength: 0.2
+  instantTravel: 0
   velocityMagnitude: 20
 --- !u!33 &8345817584639828733
 MeshFilter:
@@ -130,7 +131,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5866881359831099896}
-  m_Mesh: {fileID: -5495902117074765545, guid: 77244a9320b8aea4ab7a83871db9500a, type: 3}
+  m_Mesh: {fileID: -5495902117074765545, guid: c46849f636ed81a4c92d491289a00f72, type: 3}
 --- !u!23 &939475538478942054
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -148,9 +149,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 60f586acb18c197468dcf22d858a1255, type: 2}
-  - {fileID: 2100000, guid: 806b3ba2b6773da43bae8d3df28f2850, type: 2}
-  - {fileID: 2100000, guid: 50b1d8870263e8d4abc748d90fa8637a, type: 2}
+  - {fileID: 2100000, guid: 9b9335d7a827b8e46a90e70b40b44178, type: 2}
+  - {fileID: 2100000, guid: 062ac9456c5a89d4aa6b083534277f7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -184,7 +184,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0119554475, y: 0.031545326}
+  m_Offset: {x: -0.010485768, y: -1.1008563}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -195,5 +195,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.51410705, y: 0.36309066}
+  m_Size: {x: 7.9507895, y: 3.4097233}
   m_EdgeRadius: 0

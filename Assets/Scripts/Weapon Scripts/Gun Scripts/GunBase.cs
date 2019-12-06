@@ -62,8 +62,7 @@ public class GunBase : WeaponBase
         CreateProjectile();
 
         //Recoil
-        if (!owner.GetPlayerMovement().GetBraking())
-            owner.GetPlayerMovement().ApplyForce(owner.GetPlayerAngle() + 180f, recoilStrength);
+        owner.GetPlayerMovement().ApplyForce(owner.GetPlayerAngle() + 180f, recoilStrength);
     }
 
     protected virtual void CreateProjectile()

@@ -53,10 +53,15 @@ public class Explosion : MonoBehaviour, IPooledObject
         LeanTween.alpha(gameObject, 0, 1).setEase(LeanTweenType.easeOutCubic);
         LeanTween.scale(gameObject, transform.localScale * 1.5f, 1).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
         {
-            gameObject.SetActive(false);
+            DeactivateObject();
         });
 
         //DrawDebugExplosion();
+    }
+
+    public void DeactivateObject()
+    {
+        gameObject.SetActive(false);
     }
 
     void DrawDebugExplosion()

@@ -7,31 +7,44 @@ public class MeleeBase : WeaponBase
     public int damage;
     public float knockbackPower;
     List<GameObject> damagedPlayers;
+    public float playerYOffset;
 
-    Animator anim;
+    Transform holder;
+    public Animator anim;
+    Collider2D hitboxCollider;
 
 
 
     protected override void Start()
     {
         base.Start();
+        hitboxCollider = GetComponent<PolygonCollider2D>();
+
+        holder = transform.parent;
+        holder.Translate(Vector2.up * playerYOffset);
+
         damagedPlayers = new List<GameObject>();
-        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (Input.GetButton("P" + owner.GetPlayerNum() + "_Fire"))
+        if (Input.GetButtonDown("P" + owner.GetPlayerNum() + "_Fire"))
         {
-            anim.SetBool("Swinging", true);
+            anim.SetBool("SwingBool", true);
         }
-        else
+
+        if (Input.GetButtonUp("P" + owner.GetPlayerNum() + "_Fire"))
         {
-            anim.SetBool("Swinging", false);
+            anim.SetBool("SwingBool", false);
         }
     }
 
 
+
+    public void ToggleHitbox()
+    {
+        hitboxCollider.enabled = !hitboxCollider.enabled;
+    }
 
     public void ClearDamagedPlayers()
     {

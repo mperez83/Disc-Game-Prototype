@@ -92,6 +92,8 @@ GameObject:
   - component: {fileID: 1785443635432261106}
   - component: {fileID: 5479117219857553034}
   - component: {fileID: 6192247853634847815}
+  - component: {fileID: 5345536844379291406}
+  - component: {fileID: 7998878917452008352}
   - component: {fileID: 7817260413623928430}
   - component: {fileID: 1856357758714810952}
   m_Layer: 9
@@ -202,11 +204,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSpeedLimit: 0
   speedLimit: 100
-  actionMode: 0
+  playerCanvas: {fileID: 5040793827845213992}
+--- !u!114 &5345536844379291406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579327966865397290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1818cf8dc7efa42a02f90db166f054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostPower: 35
+--- !u!114 &7998878917452008352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579327966865397290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb10f69cb2bb774588536c965fd5cc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   brakePower: 0.1
   brakeAura: {fileID: 7367968877018031893}
-  boostPower: 10
-  playerCanvas: {fileID: 5040793827845213992}
 --- !u!58 &7817260413623928430
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -235,8 +260,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 0.2
+  m_LinearDrag: 10
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: fd5326b20d7c07b4798a4295c5d7623e, type: 2}

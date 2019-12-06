@@ -9,7 +9,7 @@ public class PhysicalProjectile : ProjectileBase
     Vector2 moveVector;
     Collider2D lastColliderHit;
     float actualRadius;
-    bool safetyTrigger;
+    bool safetyTrigger = true;
 
     public LayerMask collisionMask;
 
@@ -48,12 +48,6 @@ public class PhysicalProjectile : ProjectileBase
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
                 Destroy(gameObject);
             }
-
-            //Everything else
-            else
-            {
-                safetyTrigger = true;
-            }
         }
     }
 
@@ -81,6 +75,9 @@ public class PhysicalProjectile : ProjectileBase
                 //v' = 2 * (v . n) * n - v;
                 moveVector = 2 * (Vector2.Dot(moveVector, hit.normal.normalized)) * hit.normal.normalized - moveVector;
                 moveVector *= -1;
+
+                //Turn off owner safety if it was on
+                if (safetyTrigger) safetyTrigger = false;
             }
             else
             {
@@ -111,14 +108,6 @@ public class PhysicalProjectile : ProjectileBase
                 other.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce);
 
             Destroy(gameObject);
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            safetyTrigger = false;
         }
     }
 

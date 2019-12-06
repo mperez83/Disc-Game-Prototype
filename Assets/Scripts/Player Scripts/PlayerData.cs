@@ -15,7 +15,7 @@ public class PlayerData : MonoBehaviour
 
     SpriteRenderer sr;
     PlayerMovement playerMovement;
-    WeaponBase weapon;
+    GameObject weapon;
 
     public SpriteRenderer directionIndicator;
 
@@ -59,13 +59,13 @@ public class PlayerData : MonoBehaviour
     public void GiveWeapon(GameObject newWeapon)
     {
         if (weapon) Destroy(weapon.gameObject);
-        weapon = newWeapon.GetComponent<WeaponBase>();
+        weapon = newWeapon;
 
         //Fix position of weapon
-        newWeapon.transform.parent = transform;
+        weapon.transform.parent = transform;
         Vector2 playerDirection = TrigUtilities.DegreesToVector(playerAngle);
-        //newWeapon.transform.position = transform.position + new Vector3(playerDirection.x, playerDirection.y, 0);
-        newWeapon.transform.position = transform.position;
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localEulerAngles = Vector3.zero;
     }
 
     public void TakeDamage(int damage, float damageAngle, float damageForce)
@@ -100,7 +100,4 @@ public class PlayerData : MonoBehaviour
     public Vector2 GetPlayerDirection() { return TrigUtilities.DegreesToVector(playerAngle); }
 
     public PlayerMovement GetPlayerMovement() { return playerMovement; }
-
-    public WeaponBase GetWeapon() { return weapon; }
-
 }
