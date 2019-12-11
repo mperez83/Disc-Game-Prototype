@@ -36,7 +36,7 @@ public class WeaponPickup : MonoBehaviour
             weapon.enabled = true;
 
             //Give the weapon to the player, depending on if it has a parent or not
-            other.GetComponent<PlayerData>().GiveWeapon(gameObject);
+            other.GetComponentInParent<PlayerData>().GiveWeapon(gameObject);
 
             //If this is a gun, fix the angle and remove the box collider
             if (GetComponent<GunBase>())

@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerData))]
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerBoost : MonoBehaviour
 {
     public float boostPower;
     bool boosting;
 
-    PlayerMovement playerMovement;
     PlayerData playerData;
+    PlayerMovement playerMovement;
 
 
 
     void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>();
         playerData = GetComponent<PlayerData>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Update()

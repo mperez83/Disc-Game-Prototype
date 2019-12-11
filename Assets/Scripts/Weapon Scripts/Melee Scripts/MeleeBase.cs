@@ -26,24 +26,16 @@ public class MeleeBase : WeaponBase
         damagedPlayers = new List<GameObject>();
     }
 
-    void Update()
-    {
-        if (Input.GetButtonDown("P" + owner.GetPlayerNum() + "_Fire"))
-        {
-            anim.SetBool("SwingBool", true);
-        }
 
-        if (Input.GetButtonUp("P" + owner.GetPlayerNum() + "_Fire"))
-        {
-            anim.SetBool("SwingBool", false);
-        }
+
+    public void ActivateHitbox()
+    {
+        hitboxCollider.enabled = true;
     }
 
-
-
-    public void ToggleHitbox()
+    public void DeactivateHitbox()
     {
-        hitboxCollider.enabled = !hitboxCollider.enabled;
+        hitboxCollider.enabled = false;
     }
 
     public void ClearDamagedPlayers()
@@ -62,7 +54,7 @@ public class MeleeBase : WeaponBase
         {
             if (!damagedPlayers.Contains(other.gameObject))
             {
-                other.GetComponent<PlayerData>().TakeDamage(damage, owner.GetPlayerAngle(), knockbackPower);
+                other.GetComponentInParent<PlayerData>().TakeDamage(damage, owner.GetPlayerMovement().GetPlayerAngle(), knockbackPower);
                 damagedPlayers.Add(other.gameObject);
             }
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerData : MonoBehaviour
 {
@@ -11,15 +10,16 @@ public class PlayerData : MonoBehaviour
     public Image healthbarImage;
 
     public int playerNum;
-    float playerAngle;
+    public Color[] playerColors;
 
     SpriteRenderer sr;
     PlayerMovement playerMovement;
     GameObject weapon;
 
-    public SpriteRenderer directionIndicator;
+    public Transform respawnPointContainer;
 
-    public Color[] playerColors;
+    public GameObject corpsePrefab;
+    public Transform corpseContainer;
 
 
 
@@ -32,26 +32,7 @@ public class PlayerData : MonoBehaviour
         if (playerNum >= 1 && playerNum <= 4) sr.color = playerColors[playerNum - 1];
         else sr.color = Color.gray;
 
-        directionIndicator.color = Color.yellow;
-
         maxHealth = health;
-    }
-
-    void Update()
-    {
-        //Update rotation based on player input
-        Vector2 axis = new Vector2(Input.GetAxisRaw("P" + playerNum + "_Joystick_L_Horizontal"), Input.GetAxisRaw("P" + playerNum + "_Joystick_L_Vertical"));
-        if (axis != Vector2.zero && axis.magnitude > 0.5f)
-        {
-            playerAngle = TrigUtilities.VectorToDegrees(axis);
-            transform.rotation = Quaternion.AngleAxis(-playerAngle, Vector3.forward);
-        }
-
-        //Handle input for if the player doesn't have a weapon
-        if (Input.GetButtonDown("P" + playerNum + "_Fire"))
-        {
-            if (!weapon) playerMovement.ApplyForce(playerAngle, 1f);
-        }
     }
 
 
@@ -63,7 +44,6 @@ public class PlayerData : MonoBehaviour
 
         //Fix position of weapon
         weapon.transform.parent = transform;
-        Vector2 playerDirection = TrigUtilities.DegreesToVector(playerAngle);
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localEulerAngles = Vector3.zero;
     }
@@ -76,8 +56,12 @@ public class PlayerData : MonoBehaviour
         //Death
         if (health <= 0)
         {
-            Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
+            newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
+            LeanTween.delayedCall(2, () => {
+                Respawn();
+            });
+            gameObject.SetActive(false);
         }
 
         //Normal damage
@@ -88,16 +72,23 @@ public class PlayerData : MonoBehaviour
         }
     }
 
+    void Respawn()
+    {
+        gameObject.SetActive(true);
+        health = 100;
+        healthbarImage.fillAmount = ((float)health / maxHealth);
+
+        int randomChildIndex = Random.Range(0, respawnPointContainer.childCount);
+        transform.position = respawnPointContainer.GetChild(randomChildIndex).position;
+    }
+
 
 
     //Getters/Setters
     public int GetPlayerNum() { return playerNum; }
     public void SetPlayerNum(int num) { playerNum = num; }
 
-    public float GetPlayerAngle() { return playerAngle; }
-    public void SetPlayerAngle(float angle) { playerAngle = angle; }
-
-    public Vector2 GetPlayerDirection() { return TrigUtilities.DegreesToVector(playerAngle); }
+    public GameObject GetWeapon() { return weapon; }
 
     public PlayerMovement GetPlayerMovement() { return playerMovement; }
 }

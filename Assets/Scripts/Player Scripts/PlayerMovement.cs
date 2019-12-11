@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerData))]
 public class PlayerMovement : MonoBehaviour
 {
-    PlayerData playerData;
+    float playerAngle;
 
     public bool useSpeedLimit;
     public float speedLimit;
 
-    public Canvas playerCanvas;
+    PlayerData playerData;
     Rigidbody2D rb;
+    public Canvas playerCanvas;
 
 
 
@@ -23,6 +23,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //Update rotation based on player input
+        Vector2 axis = new Vector2(Input.GetAxisRaw("P" + playerData.GetPlayerNum() + "_Joystick_L_Horizontal"), Input.GetAxisRaw("P" + playerData.GetPlayerNum() + "_Joystick_L_Vertical"));
+        if (axis != Vector2.zero && axis.magnitude > 0.5f)
+        {
+            playerAngle = TrigUtilities.VectorToDegrees(axis);
+            transform.rotation = Quaternion.AngleAxis(-playerAngle, Vector3.forward);
+        }
+
+        //Handle input for if the player doesn't have a weapon
+        if (Input.GetButtonDown("P" + playerData.GetPlayerNum() + "_Fire"))
+        {
+            if (!playerData.GetWeapon()) ApplyForceForward(1);
+        }
+
         //Handle flying off into infinity
         if (GameManager.instance.IsTransformOffCamera(transform))
         {
@@ -49,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void ApplyForceForward(float force)
     {
-        ApplyForce(playerData.GetPlayerAngle(), force);
+        ApplyForce(playerAngle, force);
     }
+
+    public float GetPlayerAngle() { return playerAngle; }
+    public Vector2 GetPlayerDirection() { return TrigUtilities.DegreesToVector(playerAngle); }
 }

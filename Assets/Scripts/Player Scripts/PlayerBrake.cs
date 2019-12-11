@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerData))]
 public class PlayerBrake : MonoBehaviour
 {
     [Range(0.0f, 1.0f)]
@@ -17,8 +16,8 @@ public class PlayerBrake : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         playerData = GetComponent<PlayerData>();
+        rb = GetComponent<Rigidbody2D>();
         brakeAura.GetComponent<SpriteRenderer>().color = playerData.playerColors[playerData.GetPlayerNum() - 1];
     }
 

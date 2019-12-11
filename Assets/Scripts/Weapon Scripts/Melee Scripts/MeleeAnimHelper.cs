@@ -6,9 +6,14 @@ public class MeleeAnimHelper : MonoBehaviour
 {
     public MeleeBase meleeBase;
 
-    public void ToggleHitbox()
+    public void ActivateHitbox()
     {
-        meleeBase.ToggleHitbox();
+        meleeBase.ActivateHitbox();
+    }
+
+    public void DeactivateHitbox()
+    {
+        meleeBase.DeactivateHitbox();
     }
 
     public void ClearDamagedPlayers()

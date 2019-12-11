@@ -10,6 +10,6 @@ public class Shotgun : GunBase
         for (int i = 0; i < 5; i++) CreateProjectile();
 
         //Recoil
-        owner.GetPlayerMovement().ApplyForce(owner.GetPlayerAngle() + 180f, recoilStrength);
+        owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
     }
 }

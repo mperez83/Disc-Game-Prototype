@@ -62,7 +62,7 @@ public class GunBase : WeaponBase
         CreateProjectile();
 
         //Recoil
-        owner.GetPlayerMovement().ApplyForce(owner.GetPlayerAngle() + 180f, recoilStrength);
+        owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
     }
 
     protected virtual void CreateProjectile()
@@ -74,7 +74,7 @@ public class GunBase : WeaponBase
         ProjectileBase projectile = newBullet.GetComponent<ProjectileBase>();
 
         //Set general properties
-        projectile.SetDirection(TrigUtilities.DegreesToVector(owner.GetPlayerAngle() + Random.Range(-accuracyDegreeOffsetRange, accuracyDegreeOffsetRange)));
+        projectile.SetDirection(TrigUtilities.DegreesToVector(owner.GetPlayerMovement().GetPlayerAngle() + Random.Range(-accuracyDegreeOffsetRange, accuracyDegreeOffsetRange)));
         projectile.SetDamage(projectileData.damage);
         projectile.SetDamageForce(projectileData.damageForce);
         projectile.SetOwner(owner.gameObject);
