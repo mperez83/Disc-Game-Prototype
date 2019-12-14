@@ -58,11 +58,10 @@ public class GunBase : WeaponBase
 
     protected virtual void FireWeapon()
     {
-        //Projectile creation
         CreateProjectile();
-
-        //Recoil
         owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
+        CameraShakeHandler.instance.IncreaseShakeAmount(recoilStrength * 0.0002f);
+        audioSource.Play();
     }
 
     protected virtual void CreateProjectile()

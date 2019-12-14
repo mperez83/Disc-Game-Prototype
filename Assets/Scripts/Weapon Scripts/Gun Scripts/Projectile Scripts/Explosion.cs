@@ -59,6 +59,9 @@ public class Explosion : MonoBehaviour, IPooledObject
             DeactivateObject();
         });
 
+        //Shake camera
+        CameraShakeHandler.instance.IncreaseShakeAmount(explosionRadius * 0.1f);
+
         //DrawDebugExplosion();
     }
 

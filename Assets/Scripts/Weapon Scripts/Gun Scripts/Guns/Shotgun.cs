@@ -8,10 +8,9 @@ public class Shotgun : GunBase
 
     protected override void FireWeapon()
     {
-        //Projectile creation
         for (int i = 0; i < numberOfPellets; i++) CreateProjectile();
-
-        //Recoil
         owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
+        CameraShakeHandler.instance.IncreaseShakeAmount(recoilStrength * 0.0003f);
+        audioSource.Play();
     }
 }

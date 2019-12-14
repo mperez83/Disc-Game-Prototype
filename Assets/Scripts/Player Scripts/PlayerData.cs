@@ -52,6 +52,8 @@ public class PlayerData : MonoBehaviour
     {
         //Subtract from health
         health -= damage;
+        //CameraShakeHandler.instance.ShakeCamera(0.1f, 0.005f * damage);
+        CameraShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
 
         //Death
         if (health <= 0)
