@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0767133bbad1b64094a81bc4d0f1a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  knockbackPower: 125
+  damage: 34
+  knockbackPower: 400
   playerYOffset: 0.13
   anim: {fileID: 460172885906719592}
   meleeMesh: {fileID: 460172885906719589}

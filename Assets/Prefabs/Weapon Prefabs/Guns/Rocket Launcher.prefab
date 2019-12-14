@@ -83,12 +83,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 75
-  damageForce: 300
-  canHitOwner: 0
+  damage: 200
+  damageForce: 400
+  canHitOwner: 1
   bounces: 0
   causeExplosion: 1
-  explosionRadius: 2
+  explosionRadius: 3
   explodeEveryBounce: 0
   hitscan: 0
   decayTimerLength: 0.35

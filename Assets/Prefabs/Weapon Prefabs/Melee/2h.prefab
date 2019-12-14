@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a56e7bd4d8e5142913e9c97d63ea2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 34
+  damage: 100
   knockbackPower: 1000
   playerYOffset: 0.35
   anim: {fileID: 460172885906719592}

@@ -43,7 +43,7 @@ public class HitscanProjectile : ProjectileBase
             if (collider.CompareTag("Player") && collider.gameObject != owner)
             {
                 if (causeExplosion)
-                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
                 else
                     collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
                 Destroy(gameObject);
@@ -53,7 +53,7 @@ public class HitscanProjectile : ProjectileBase
             else if (collider.CompareTag("Wall"))
             {
                 if (causeExplosion)
-                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
                 Destroy(gameObject);
             }
 
@@ -146,7 +146,7 @@ public class HitscanProjectile : ProjectileBase
         fadingOut = true;
 
         if (causeExplosion)
-            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
         else
             playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
     }
@@ -158,7 +158,7 @@ public class HitscanProjectile : ProjectileBase
 
         if (causeExplosion)
             if (explodeEveryBounce || bounces == 0)
-                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damage, damageForce * 5, explosionRadius, (!canHitOwner) ? owner : null);
+                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
 
         bounces--;
         if (bounces >= 0)

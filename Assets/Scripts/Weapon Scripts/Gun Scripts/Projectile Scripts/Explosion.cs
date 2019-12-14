@@ -31,16 +31,19 @@ public class Explosion : MonoBehaviour, IPooledObject
                 //Add the player's radius to the explosion radius because the distance between the explosion and the player might be farther than the explosion radius
                 float updatedExplosionRadius = explosionRadius + playerCollider.radius;
 
-                //Apply force
-                collider.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, updatedExplosionRadius);
+                //Get angle/distance of explosion to target
+                Vector2 forceDirection = collider.transform.position - transform.position;
+                float distance = Vector2.Distance(transform.position, collider.transform.position);
 
-                //Apply damage
-                if (collider.gameObject != objThatIgnoresDamage)
-                {
-                    float distance = Vector2.Distance(transform.position, collider.transform.position);
-                    int damage = (int)Mathf.Ceil(explosionDamage * (updatedExplosionRadius - distance) / updatedExplosionRadius);
-                    collider.GetComponent<PlayerData>().TakeDamage(damage, 0, 0);
-                }
+                //Calculate damage the target will take
+                int damage = (int)Mathf.Ceil(explosionDamage * (updatedExplosionRadius - distance) / updatedExplosionRadius);
+                if (collider.gameObject == objThatIgnoresDamage) damage = 0;
+
+                //Tweak the explosion force depending on the distance from the epicenter
+                explosionForce *= (explosionRadius - distance) / explosionRadius;
+
+                //Apply the damage/force
+                collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(forceDirection), explosionForce);
             }
         }
 
