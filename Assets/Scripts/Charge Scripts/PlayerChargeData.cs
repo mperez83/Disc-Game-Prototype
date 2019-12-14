@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerChargeData : MonoBehaviour
 {
     int score;
+    public int winScore;
 
 
 
@@ -23,5 +24,9 @@ public class PlayerChargeData : MonoBehaviour
     public void GainCharge(int amount)
     {
         score += amount;
+        if (score >= winScore)
+        {
+            ChargeMatchHandler.instance.EndMatch();
+        }
     }
 }

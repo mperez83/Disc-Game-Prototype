@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
+  damage: 75
   damageForce: 300
   canHitOwner: 0
   bounces: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   hitscan: 0
   decayTimerLength: 0.35
   instantTravel: 0
-  velocityMagnitude: 20
+  velocityMagnitude: 30
 --- !u!33 &6735620463037385825
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -236,6 +236,9 @@ MonoBehaviour:
   knockbackPower: 125
   playerYOffset: 0.13
   anim: {fileID: 460172885906719592}
+  meleeMesh: {fileID: 460172885906719589}
+  baseMaterial: {fileID: 2100000, guid: ae83dfa8d5425fd4d9ea1a55a34bee96, type: 2}
+  indexOfBladeMaterial: 2
 --- !u!60 &460172887072571998
 PolygonCollider2D:
   m_ObjectHideFlags: 0

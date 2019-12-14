@@ -58,7 +58,7 @@ public class PlayerData : MonoBehaviour
         {
             GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
             newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
-            LeanTween.delayedCall(2, () => {
+            LeanTween.delayedCall(gameObject, 2, () => {
                 Respawn();
             });
             gameObject.SetActive(false);
@@ -89,6 +89,6 @@ public class PlayerData : MonoBehaviour
     public void SetPlayerNum(int num) { playerNum = num; }
 
     public GameObject GetWeapon() { return weapon; }
-
     public PlayerMovement GetPlayerMovement() { return playerMovement; }
+    public SpriteRenderer GetSpriteRenderer() { return sr; }
 }

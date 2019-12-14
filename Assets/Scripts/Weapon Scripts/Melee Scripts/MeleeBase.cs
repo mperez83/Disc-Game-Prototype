@@ -13,6 +13,10 @@ public class MeleeBase : WeaponBase
     public Animator anim;
     Collider2D hitboxCollider;
 
+    public Renderer meleeMesh;
+    public Material baseMaterial;
+    public int indexOfBladeMaterial;
+
 
 
     protected override void Start()
@@ -24,6 +28,15 @@ public class MeleeBase : WeaponBase
         holder.Translate(Vector2.up * playerYOffset);
 
         damagedPlayers = new List<GameObject>();
+
+        Material[] tempMaterialsArray = new Material[meleeMesh.materials.Length];
+        System.Array.Copy(meleeMesh.materials, tempMaterialsArray, meleeMesh.materials.Length);
+
+        Material playerMaterial = new Material(baseMaterial);
+        playerMaterial.color = owner.GetSpriteRenderer().color;
+
+        tempMaterialsArray[indexOfBladeMaterial] = playerMaterial;
+        meleeMesh.materials = tempMaterialsArray;
     }
 
 
