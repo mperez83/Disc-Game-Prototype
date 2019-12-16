@@ -40,7 +40,7 @@ public class HitscanProjectile : ProjectileBase
         foreach (Collider2D collider in colliders)
         {
             //Other player
-            if (collider.CompareTag("Player") && collider.gameObject != owner)
+            if (collider.CompareTag("Player") && collider.gameObject != owner.gameObject)
             {
                 if (causeExplosion)
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
@@ -101,7 +101,7 @@ public class HitscanProjectile : ProjectileBase
         RaycastHit2D wallHit = Physics2D.Raycast(vertexStart, direction, Mathf.Infinity, wallCollisionMask);
 
         //If we hit a player
-        if (playerHit && (playerHit.collider.gameObject != owner || canHitOwner))
+        if (playerHit && (playerHit.collider.gameObject != owner.gameObject || canHitOwner))
         {
             if (wallHit)
             {

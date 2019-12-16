@@ -15,6 +15,7 @@ public class WeaponSpawner : MonoBehaviour
     void Start()
     {
         if (!transform.GetComponentInChildren<WeaponPickup>()) CreateNewWeapon();
+        timerImage.gameObject.SetActive(false);
     }
 
 

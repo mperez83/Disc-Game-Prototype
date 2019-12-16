@@ -17,6 +17,7 @@ public class PlayerData : MonoBehaviour
     //Score stuff
     int kills;
     int deaths;
+    public GameObject textObjectPrefab;
 
     //References
     SpriteRenderer sr;
@@ -113,7 +114,13 @@ public class PlayerData : MonoBehaviour
     public void SetPlayerNum(int num) { playerNum = num; }
 
     public int GetKills() { return kills; }
-    public void IncrementKills() { kills++; }
+    public void IncrementKills()
+    {
+        kills++;
+        TextFadeObject killText = Instantiate(textObjectPrefab, transform.position, Quaternion.identity).GetComponent<TextFadeObject>();
+        killText.SetText(kills.ToString() + "!");
+        killText.SetColor(sr.color);
+    }
 
     public GameObject GetWeapon() { return weapon; }
     public PlayerMovement GetPlayerMovement() { return playerMovement; }

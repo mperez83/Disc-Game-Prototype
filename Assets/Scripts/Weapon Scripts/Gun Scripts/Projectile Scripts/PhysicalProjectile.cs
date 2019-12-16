@@ -32,7 +32,7 @@ public class PhysicalProjectile : ProjectileBase
             if (collider == circleCollider) continue;
 
             //Other player
-            if (collider.CompareTag("Player") && collider.gameObject != owner)
+            if (collider.CompareTag("Player") && collider.gameObject != owner.gameObject)
             {
                 if (causeExplosion)
                     ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
@@ -100,7 +100,7 @@ public class PhysicalProjectile : ProjectileBase
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && (other.gameObject != owner || (canHitOwner && !safetyTrigger)))
+        if (other.CompareTag("Player") && (other.gameObject != owner.gameObject || (canHitOwner && !safetyTrigger)))
         {
             if (causeExplosion)
                 ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
