@@ -16,8 +16,12 @@ public class CameraShakeHandler : MonoBehaviour
 
     void Update()
     {
-        shakeAmount -= (Time.deltaTime / Mathf.Clamp(2 - (shakeAmount * 2), 0.25f, 2f));
+        //This convoluted algorithm makes it so that the larger the shakeAmount is, the faster it'll decrease (because a larger shakeAmount = a smaller denominator)
+        shakeAmount -= (Time.deltaTime / Mathf.Clamp(2 - (shakeAmount * 4), 0.1f, 2f));
         if (shakeAmount < 0) shakeAmount = 0;
+
+        //shakeAmount *= 0.95f;
+        //if (shakeAmount < 0.1f) shakeAmount = 0;
 
         if (shakeAmount > 0)
         {
