@@ -12,10 +12,13 @@ public class MatchHandler : MonoBehaviour
     float matchTimer;
     public Image timerBar;
 
+
+
     void Awake()
     {
         instance = this;
         matchTimer = matchTimerLength;
+        DMMatchStats.instance.SetupPlayerStats();
     }
 
     void Update()
@@ -37,8 +40,12 @@ public class MatchHandler : MonoBehaviour
         }
     }
 
+
+
+    //At the end of a match, we take all of the data from the players in the scene and update their respective PlayerStats inside DMMatchStats
     public void EndMatch()
     {
+        DMMatchStats.instance.UpdatePlayerStats();
         SceneManager.LoadScene("Results");
     }
 }

@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DMMatchStats : MonoBehaviour
+public class DMMatchSettings : MonoBehaviour
 {
-    public static DMMatchStats instance;
+    public static DMMatchSettings instance;
 
-    public List<PlayerData> matchPlayers;
-
-    void Start()
+    void Awake()
     {
         if (instance != null && instance != this)
         {
@@ -20,10 +18,5 @@ public class DMMatchStats : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(this);
-    }
-
-    void Update()
-    {
-        
     }
 }

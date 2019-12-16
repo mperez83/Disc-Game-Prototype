@@ -122,6 +122,8 @@ public class PlayerData : MonoBehaviour
         killText.SetColor(sr.color);
     }
 
+    public int GetDeaths() { return deaths; }
+
     public GameObject GetWeapon() { return weapon; }
     public PlayerMovement GetPlayerMovement() { return playerMovement; }
     public SpriteRenderer GetSpriteRenderer() { return sr; }

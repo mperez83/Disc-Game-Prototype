@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7672113185970373964}
   - component: {fileID: 7672113185970373965}
+  - component: {fileID: 4872724694608880663}
+  - component: {fileID: 4568957816075975090}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,3 +49,28 @@ MonoBehaviour:
   screenBottomEdge: 0
   screenLeftEdge: 0
   screenRightEdge: 0
+--- !u!114 &4872724694608880663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672113185970373963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a32da158692b64894c3f4798b26695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4568957816075975090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672113185970373963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b022fc0b8acac347b4e69ef362a9d6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matchPlayers: []
