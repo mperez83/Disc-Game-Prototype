@@ -67,7 +67,7 @@ public class MeleeBase : WeaponBase
         {
             if (!damagedPlayers.Contains(other.gameObject))
             {
-                other.GetComponentInParent<PlayerData>().TakeDamage(damage, owner.GetPlayerMovement().GetPlayerAngle(), knockbackPower);
+                other.GetComponentInParent<PlayerData>().TakeDamage(damage, owner.GetPlayerMovement().GetPlayerAngle(), knockbackPower, owner);
                 damagedPlayers.Add(other.gameObject);
             }
         }

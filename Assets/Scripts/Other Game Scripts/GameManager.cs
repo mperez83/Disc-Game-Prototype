@@ -7,9 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    int curScene;
-    public string[] sceneNames;
-
     [HideInInspector]
     public float screenTopEdge;
     [HideInInspector]
@@ -39,13 +36,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            curScene++;
-            if (curScene >= sceneNames.Length) curScene = 0;
-            SceneManager.LoadScene(sceneNames[curScene]);
-        }
-
         UpdateScreenEdges();
     }
 

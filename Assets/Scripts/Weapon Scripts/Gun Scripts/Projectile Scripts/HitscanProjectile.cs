@@ -43,9 +43,9 @@ public class HitscanProjectile : ProjectileBase
             if (collider.CompareTag("Player") && collider.gameObject != owner)
             {
                 if (causeExplosion)
-                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
                 else
-                    collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
+                    collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce, owner);
                 Destroy(gameObject);
             }
 
@@ -53,7 +53,7 @@ public class HitscanProjectile : ProjectileBase
             else if (collider.CompareTag("Wall"))
             {
                 if (causeExplosion)
-                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
                 Destroy(gameObject);
             }
 
@@ -146,9 +146,9 @@ public class HitscanProjectile : ProjectileBase
         fadingOut = true;
 
         if (causeExplosion)
-            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+            ObjectPooler.instance.SpawnExplosionFromPool(playerHit.point, damage, damageForce, explosionRadius, owner, canHitOwner);
         else
-            playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
+            playerHit.transform.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce, owner);
     }
 
     void HandleWallHit(RaycastHit2D wallHit)
@@ -158,7 +158,7 @@ public class HitscanProjectile : ProjectileBase
 
         if (causeExplosion)
             if (explodeEveryBounce || bounces == 0)
-                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                ObjectPooler.instance.SpawnExplosionFromPool(wallHit.point, damage, damageForce, explosionRadius, owner, canHitOwner);
 
         bounces--;
         if (bounces >= 0)

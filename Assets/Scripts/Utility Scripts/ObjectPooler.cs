@@ -65,7 +65,7 @@ public class ObjectPooler : MonoBehaviour
         return objectToSpawn;
     }
 
-    public GameObject SpawnExplosionFromPool(Vector2 position, int explosionDamage, float explosionForce, float explosionRadius, GameObject objThatIgnoresDamage)
+    public GameObject SpawnExplosionFromPool(Vector2 position, int explosionDamage, float explosionForce, float explosionRadius, PlayerData owner, bool canHitOwner)
     {
         string tag = "Explosion";
 
@@ -83,7 +83,8 @@ public class ObjectPooler : MonoBehaviour
         explosion.SetExplosionDamage(explosionDamage);
         explosion.SetExplosionForce(explosionForce);
         explosion.SetExplosionRadius(explosionRadius);
-        explosion.SetObjThatIgnoresDamage(objThatIgnoresDamage);
+        explosion.SetOwner(owner);
+        explosion.SetCanHitOwner(canHitOwner);
         explosion.OnObjectSpawn();
 
         poolDictionary[tag].Enqueue(objectToSpawn);

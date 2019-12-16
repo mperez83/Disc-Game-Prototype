@@ -497,7 +497,6 @@ GameObject:
   - component: {fileID: 4189669434108639784}
   - component: {fileID: 8506044711103572178}
   - component: {fileID: 8873858682549254920}
-  - component: {fileID: 8873858682549254923}
   - component: {fileID: 4261506420158212455}
   - component: {fileID: 2658118219536683566}
   - component: {fileID: 129787319121192576}
@@ -589,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9458f190e3c8742ac3ed9bcb69f996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  maxHealth: 100
   healthbarImage: {fileID: 6798432220816957410}
   playerNum: 0
   playerColors:
@@ -601,19 +600,6 @@ MonoBehaviour:
   corpsePrefab: {fileID: 7833158930942544218, guid: 17c40cd74f7c9134fb9f3f47ccac97c0,
     type: 3}
   corpseContainer: {fileID: 0}
---- !u!114 &8873858682549254923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8873858682549254922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1422bb7f0bd184abed5fb59fcb1abf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winScore: 10
 --- !u!114 &4261506420158212455
 MonoBehaviour:
   m_ObjectHideFlags: 0

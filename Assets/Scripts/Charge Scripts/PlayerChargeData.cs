@@ -26,7 +26,7 @@ public class PlayerChargeData : MonoBehaviour
         score += amount;
         if (score >= winScore)
         {
-            ChargeMatchHandler.instance.EndMatch();
+            MatchHandler.instance.EndMatch();
         }
     }
 }

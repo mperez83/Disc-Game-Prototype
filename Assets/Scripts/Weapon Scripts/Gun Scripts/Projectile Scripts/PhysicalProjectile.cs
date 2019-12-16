@@ -35,9 +35,9 @@ public class PhysicalProjectile : ProjectileBase
             if (collider.CompareTag("Player") && collider.gameObject != owner)
             {
                 if (causeExplosion)
-                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
                 else
-                    collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce);
+                    collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(direction), damageForce, owner);
                 Destroy(gameObject);
             }
 
@@ -45,7 +45,7 @@ public class PhysicalProjectile : ProjectileBase
             else if (collider.CompareTag("Wall"))
             {
                 if (causeExplosion)
-                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
                 Destroy(gameObject);
             }
         }
@@ -62,7 +62,7 @@ public class PhysicalProjectile : ProjectileBase
         {
             if (causeExplosion)
                 if (explodeEveryBounce || bounces == 0)
-                    ObjectPooler.instance.SpawnExplosionFromPool(hit.point, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                    ObjectPooler.instance.SpawnExplosionFromPool(hit.point, damage, damageForce, explosionRadius, owner, canHitOwner);
 
             if (bounces > 0)
             {
@@ -103,9 +103,9 @@ public class PhysicalProjectile : ProjectileBase
         if (other.CompareTag("Player") && (other.gameObject != owner || (canHitOwner && !safetyTrigger)))
         {
             if (causeExplosion)
-                ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, (!canHitOwner) ? owner : null);
+                ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
             else
-                other.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce);
+                other.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(moveVector.normalized), damageForce, owner);
 
             Destroy(gameObject);
         }

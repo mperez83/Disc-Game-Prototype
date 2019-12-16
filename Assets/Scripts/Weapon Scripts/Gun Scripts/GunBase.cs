@@ -76,7 +76,7 @@ public class GunBase : WeaponBase
         projectile.SetDirection(TrigUtilities.DegreesToVector(owner.GetPlayerMovement().GetPlayerAngle() + Random.Range(-accuracyDegreeOffsetRange, accuracyDegreeOffsetRange)));
         projectile.SetDamage(projectileData.damage);
         projectile.SetDamageForce(projectileData.damageForce);
-        projectile.SetOwner(owner.gameObject);
+        projectile.SetOwner(owner);
         projectile.SetCanHitOwner(projectileData.canHitOwner);
         projectile.SetColor(owner.GetComponent<SpriteRenderer>().GetModifiedBrightness(3f));
         projectile.SetBounces(projectileData.bounces);

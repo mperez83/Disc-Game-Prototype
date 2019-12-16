@@ -9,7 +9,9 @@ public class Explosion : MonoBehaviour, IPooledObject
     float explosionDamage;
     float explosionForce;
     float explosionRadius;
-    GameObject objThatIgnoresDamage;
+
+    PlayerData owner;
+    bool canHitOwner;
 
     SpriteRenderer sr;
 
@@ -37,13 +39,13 @@ public class Explosion : MonoBehaviour, IPooledObject
 
                 //Calculate damage the target will take
                 int damage = (int)Mathf.Ceil(explosionDamage * (updatedExplosionRadius - distance) / updatedExplosionRadius);
-                if (collider.gameObject == objThatIgnoresDamage) damage = 0;
+                if (collider.gameObject == owner.gameObject && !canHitOwner) damage = 0;
 
                 //Tweak the explosion force depending on the distance from the epicenter
                 explosionForce *= (explosionRadius - distance) / explosionRadius;
 
                 //Apply the damage/force
-                collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(forceDirection), explosionForce);
+                collider.GetComponent<PlayerData>().TakeDamage(damage, TrigUtilities.VectorToDegrees(forceDirection), explosionForce, owner);
             }
         }
 
@@ -90,5 +92,6 @@ public class Explosion : MonoBehaviour, IPooledObject
     public void SetExplosionDamage(int temp) { explosionDamage = temp; }
     public void SetExplosionForce(float temp) { explosionForce = temp; }
     public void SetExplosionRadius(float temp) { explosionRadius = temp; }
-    public void SetObjThatIgnoresDamage(GameObject temp) { objThatIgnoresDamage = temp; }
+    public void SetOwner(PlayerData temp) { owner = temp; }
+    public void SetCanHitOwner(bool temp) { canHitOwner = temp; }
 }

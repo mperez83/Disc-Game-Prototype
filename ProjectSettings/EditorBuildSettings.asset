@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Charger Mode.unity
+    path: Assets/Scenes/Deathmatch.unity
     guid: 5621f5c66a6f6b54d8f530a56898e692
   - enabled: 1
-    path: Assets/Scenes/Match Options.unity
+    path: Assets/Scenes/Results.unity
     guid: ad0b1c8449c24f0459cf31fc326d10af
   m_configObjects: {}

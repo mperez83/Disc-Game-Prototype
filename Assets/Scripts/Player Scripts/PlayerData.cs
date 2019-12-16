@@ -5,19 +5,28 @@ using UnityEngine.UI;
 
 public class PlayerData : MonoBehaviour
 {
-    public int health;
-    int maxHealth;
-    public Image healthbarImage;
-
+    //Player num stuff
     public int playerNum;
     public Color[] playerColors;
 
+    //Health stuff
+    public int maxHealth;
+    int health;
+    public Image healthbarImage;
+
+    //Score stuff
+    int kills;
+    int deaths;
+
+    //References
     SpriteRenderer sr;
     PlayerMovement playerMovement;
     GameObject weapon;
 
+    //Respawn stuff
     public Transform respawnPointContainer;
 
+    //Corpse stuff
     public GameObject corpsePrefab;
     public Transform corpseContainer;
 
@@ -30,9 +39,15 @@ public class PlayerData : MonoBehaviour
 
         //Set color
         if (playerNum >= 1 && playerNum <= 4) sr.color = playerColors[playerNum - 1];
-        else sr.color = Color.gray;
+        else
+        {
+            sr.color = Color.gray;
+            Destroy(GetComponent<PlayerBoost>());
+            Destroy(GetComponent<PlayerBrake>());
+            Destroy(GetComponent<PlayerMovement>());
+        }
 
-        maxHealth = health;
+        health = maxHealth;
     }
 
 
@@ -48,18 +63,25 @@ public class PlayerData : MonoBehaviour
         weapon.transform.localEulerAngles = Vector3.zero;
     }
 
-    public void TakeDamage(int damage, float damageAngle, float damageForce)
+    public void TakeDamage(int damage, float damageAngle, float damageForce, PlayerData damageSource)
     {
-        //Subtract from health
         health -= damage;
-        //CameraShakeHandler.instance.ShakeCamera(0.1f, 0.005f * damage);
         CameraShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
 
         //Death
         if (health <= 0)
         {
+            if (damageSource != this) damageSource.IncrementKills();
+            deaths++;
+
+            //Spawn corpse
             GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
             newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
+
+            //Remove weapon
+            if (weapon) Destroy(weapon.gameObject);
+
+            //Remove player temporarily
             LeanTween.delayedCall(gameObject, 2, () => {
                 Respawn();
             });
@@ -89,6 +111,9 @@ public class PlayerData : MonoBehaviour
     //Getters/Setters
     public int GetPlayerNum() { return playerNum; }
     public void SetPlayerNum(int num) { playerNum = num; }
+
+    public int GetKills() { return kills; }
+    public void IncrementKills() { kills++; }
 
     public GameObject GetWeapon() { return weapon; }
     public PlayerMovement GetPlayerMovement() { return playerMovement; }

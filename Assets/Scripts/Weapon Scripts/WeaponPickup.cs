@@ -9,13 +9,15 @@ public class WeaponPickup : MonoBehaviour
     float deg;
     float sinVal;
 
-    public WeaponBase weapon;
+    public WeaponBase weapon;       //This is a public variable rather than a private GetComponent<> variable because the WeaponBase on melee weapons are not part of this transform
+    WeaponSpawner weaponSpawner;    //May or may not exist; we check for it in the Start function
 
 
 
     void Start()
     {
         deg = Random.Range(0f, 360f);
+        if (transform.parent) weaponSpawner = transform.parent.GetComponent<WeaponSpawner>();
     }
 
     void Update()
@@ -43,6 +45,9 @@ public class WeaponPickup : MonoBehaviour
             {
                 transform.localEulerAngles = new Vector3(0, 90, -90);
             }
+
+            //If this weapon is part of a weapon spawner, trigger the weapon spawner respawn coroutine
+            if (weaponSpawner) weaponSpawner.StartWeaponRespawn();
 
             //Disable pickup script stuff
             Destroy(GetComponent<BoxCollider2D>());
