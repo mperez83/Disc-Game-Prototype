@@ -61,7 +61,7 @@ public class GunBase : WeaponBase
         CreateProjectile();
         owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
         CameraShakeHandler.instance.IncreaseShakeAmount(recoilStrength * 0.0002f);
-        audioSource.Play();
+        audioSource.PlayRandomize();
     }
 
     protected virtual void CreateProjectile()

@@ -54,4 +54,17 @@ public static class ExtensionMethods
         force *= (explosionRadius - distance) / explosionRadius;
         self.AddForce(forceDirection.normalized * force);
     }
+
+
+
+    public static void PlayRandomize(this AudioSource self)
+    {
+        PlayRandomize(self, 0.15f);
+    }
+
+    public static void PlayRandomize(this AudioSource self, float randomOffset)
+    {
+        self.pitch = 1 + Random.Range(-randomOffset, randomOffset);
+        self.Play();
+    }
 }

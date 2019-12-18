@@ -338,6 +338,7 @@ MonoBehaviour:
   meleeMesh: {fileID: 460172885906719589}
   baseMaterial: {fileID: 2100000, guid: ae83dfa8d5425fd4d9ea1a55a34bee96, type: 2}
   indexOfBladeMaterial: 2
+  swingAS: {fileID: 3982282160937888651}
 --- !u!60 &460172887072571998
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -400,7 +401,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 87ac4c9058159f842a1f3c51311db158, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

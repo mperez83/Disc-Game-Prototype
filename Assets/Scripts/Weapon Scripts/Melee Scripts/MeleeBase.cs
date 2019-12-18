@@ -17,6 +17,8 @@ public class MeleeBase : WeaponBase
     public Material baseMaterial;
     public int indexOfBladeMaterial;
 
+    public AudioSource swingAS;
+
 
 
     protected override void Start()
@@ -44,6 +46,7 @@ public class MeleeBase : WeaponBase
     public void ActivateHitbox()
     {
         hitboxCollider.enabled = true;
+        swingAS.PlayRandomize();
     }
 
     public void DeactivateHitbox()

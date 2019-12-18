@@ -23,6 +23,7 @@ public class PlayerData : MonoBehaviour
     SpriteRenderer sr;
     PlayerMovement playerMovement;
     GameObject weapon;
+    public AudioSource playerHurtAS;
 
     //Respawn stuff
     public Transform respawnPointContainer;
@@ -77,6 +78,8 @@ public class PlayerData : MonoBehaviour
                 if (damageSource != this) damageSource.IncrementKills();
                 deaths++;
 
+                CameraShakeHandler.instance.IncreaseShakeAmount(1);
+
                 //Spawn corpse
                 GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
                 newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
@@ -96,6 +99,7 @@ public class PlayerData : MonoBehaviour
             {
                 playerMovement.ApplyForce(damageAngle, damageForce);
                 healthbarImage.fillAmount = ((float)health / maxHealth);
+                playerHurtAS.PlayRandomize(0.25f);
             }
         }
     }
