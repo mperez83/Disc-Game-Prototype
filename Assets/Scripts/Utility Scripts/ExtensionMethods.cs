@@ -30,6 +30,11 @@ public static class ExtensionMethods
         return new Color(self.color.r * correctionFactor, self.color.g * correctionFactor, self.color.b * correctionFactor, self.color.a);
     }
 
+    public static Color GetModifiedBrightness(this Color self, float correctionFactor)
+    {
+        return new Color(self.r * correctionFactor, self.g * correctionFactor, self.b * correctionFactor, self.a);
+    }
+
 
 
     /// <summary>

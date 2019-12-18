@@ -638,6 +638,13 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.33333334
+    functionName: ActivateTrails
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
     functionName: ActivateHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -651,7 +658,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.98333335
+  - time: 0.41666666
+    functionName: DeactivateTrails
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
     functionName: ClearDamagedPlayers
     data: 
     objectReferenceParameter: {fileID: 0}

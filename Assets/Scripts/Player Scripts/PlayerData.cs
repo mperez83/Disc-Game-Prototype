@@ -78,7 +78,7 @@ public class PlayerData : MonoBehaviour
                 if (damageSource != this) damageSource.IncrementKills();
                 deaths++;
 
-                CameraShakeHandler.instance.IncreaseShakeAmount(1);
+                CameraShakeHandler.instance.IncreaseShakeAmount(0.5f);
 
                 //Spawn corpse
                 GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);

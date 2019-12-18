@@ -97,9 +97,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileStartPos: {fileID: 2363279462330837738}
   automatic: 1
-  shootTimerLength: 0.1
+  shootTimerLength: 0.05
   accuracyDegreeOffsetRange: 5
-  recoilStrength: 100
+  recoilStrength: 80
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
   physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
@@ -116,8 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
-  damageForce: 250
+  damage: 13
+  damageForce: 125
   canHitOwner: 0
   bounces: 0
   causeExplosion: 0

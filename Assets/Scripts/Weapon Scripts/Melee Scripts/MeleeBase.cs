@@ -10,14 +10,9 @@ public class MeleeBase : WeaponBase
     public float playerYOffset;
 
     Transform holder;
-    public Animator anim;
     Collider2D hitboxCollider;
-
-    public Renderer meleeMesh;
-    public Material baseMaterial;
-    public int indexOfBladeMaterial;
-
-    public AudioSource swingAS;
+    public Animator anim;
+    public MeleeDisplay meleeDisplay;
 
 
 
@@ -26,19 +21,12 @@ public class MeleeBase : WeaponBase
         base.Start();
         hitboxCollider = GetComponent<PolygonCollider2D>();
 
-        holder = transform.parent;
+        holder = transform.parent; //The holder is pretty much explicitly used for this purpose; offsetting the weapon by some amount upon startup
         holder.Translate(Vector2.up * playerYOffset);
 
         damagedPlayers = new List<GameObject>();
 
-        Material[] tempMaterialsArray = new Material[meleeMesh.materials.Length];
-        System.Array.Copy(meleeMesh.materials, tempMaterialsArray, meleeMesh.materials.Length);
-
-        Material playerMaterial = new Material(baseMaterial);
-        playerMaterial.color = owner.GetSpriteRenderer().color;
-
-        tempMaterialsArray[indexOfBladeMaterial] = playerMaterial;
-        meleeMesh.materials = tempMaterialsArray;
+        meleeDisplay.ColorBlade(owner.GetComponent<SpriteRenderer>().color);
     }
 
 
@@ -46,7 +34,6 @@ public class MeleeBase : WeaponBase
     public void ActivateHitbox()
     {
         hitboxCollider.enabled = true;
-        swingAS.PlayRandomize();
     }
 
     public void DeactivateHitbox()
