@@ -7,14 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [HideInInspector]
-    public float screenTopEdge;
-    [HideInInspector]
-    public float screenBottomEdge;
-    [HideInInspector]
-    public float screenLeftEdge;
-    [HideInInspector]
-    public float screenRightEdge;
+    [Range(0f, 5f)]
+    public float cameraShakeModifier = 1;
+
+    float screenTopEdge;
+    float screenBottomEdge;
+    float screenLeftEdge;
+    float screenRightEdge;
 
 
 

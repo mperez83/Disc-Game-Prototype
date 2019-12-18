@@ -7,6 +7,8 @@ public class DMMatchStats : MonoBehaviour
     public static DMMatchStats instance;
 
     public Dictionary<int, PlayerStats> playerStats;
+
+    [HideInInspector]
     public List<PlayerData> matchPlayers;
 
 

@@ -45,10 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6af1d5abc6034e86579b3b15d9a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenTopEdge: 0
-  screenBottomEdge: 0
-  screenLeftEdge: 0
-  screenRightEdge: 0
+  cameraShakeModifier: 1
 --- !u!114 &4872724694608880663
 MonoBehaviour:
   m_ObjectHideFlags: 0

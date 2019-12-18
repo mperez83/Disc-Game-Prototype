@@ -35,8 +35,8 @@ public class CameraShakeHandler : MonoBehaviour
         }
     }
 
-    public void SetShakeAmount(float newShakeAmount) { shakeAmount = newShakeAmount; }
-    public void IncreaseShakeAmount(float value) { shakeAmount += value; }
+    public void SetShakeAmount(float newShakeAmount) { shakeAmount = newShakeAmount * GameManager.instance.cameraShakeModifier; }
+    public void IncreaseShakeAmount(float value) { shakeAmount += value * GameManager.instance.cameraShakeModifier; }
 
     /*public void ShakeCamera(float power, float duration)
     {
