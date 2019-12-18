@@ -12,6 +12,8 @@ public class WeaponPickup : MonoBehaviour
     public WeaponBase weapon;       //This is a public variable rather than a private GetComponent<> variable because the WeaponBase on melee weapons are not part of this transform
     WeaponSpawner weaponSpawner;    //May or may not exist; we check for it in the Start function
 
+    public AudioSource pickUpAS;    //This is public because there are two audiosources on this object, which GetComponent can't tell the difference between
+
 
 
     void Start()
@@ -48,6 +50,9 @@ public class WeaponPickup : MonoBehaviour
 
             //If this weapon is part of a weapon spawner, trigger the weapon spawner respawn coroutine
             if (weaponSpawner) weaponSpawner.StartWeaponRespawn();
+
+            //Play pickup sound
+            pickUpAS.Play();
 
             //Disable pickup script stuff
             Destroy(GetComponent<BoxCollider2D>());

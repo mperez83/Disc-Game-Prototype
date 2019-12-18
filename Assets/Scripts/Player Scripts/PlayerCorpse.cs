@@ -6,11 +6,13 @@ public class PlayerCorpse : MonoBehaviour
 {
     Rigidbody2D rb;
     Collider2D m_collider;
+    AudioSource audioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         m_collider = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -19,6 +21,7 @@ public class PlayerCorpse : MonoBehaviour
         {
             Destroy(rb);
             Destroy(m_collider);
+            Destroy(audioSource);
             Destroy(this);
         }
     }
