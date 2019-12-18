@@ -94,7 +94,7 @@ MonoBehaviour:
   hitscan: 0
   decayTimerLength: 0.35
   instantTravel: 0
-  velocityMagnitude: 30
+  velocityMagnitude: 25
 --- !u!33 &6735620463037385825
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9325e0d950229284bbfe92328929f676, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0

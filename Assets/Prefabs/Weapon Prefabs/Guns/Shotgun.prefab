@@ -92,10 +92,10 @@ MonoBehaviour:
   causeExplosion: 0
   explosionRadius: 0
   explodeEveryBounce: 0
-  hitscan: 1
+  hitscan: 0
   decayTimerLength: 0.35
   instantTravel: 1
-  velocityMagnitude: 15
+  velocityMagnitude: 35
 --- !u!33 &6735620463037385825
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -116,15 +116,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   damageForce: 250
-  canHitOwner: 1
-  bounces: 1
+  canHitOwner: 0
+  bounces: 0
   causeExplosion: 0
   explosionRadius: 0
   explodeEveryBounce: 0
   hitscan: 0
   decayTimerLength: 0.05
   instantTravel: 0
-  velocityMagnitude: 40
+  velocityMagnitude: 35
 --- !u!33 &7183144566955305274
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -66,34 +66,37 @@ public class PlayerData : MonoBehaviour
 
     public void TakeDamage(int damage, float damageAngle, float damageForce, PlayerData damageSource)
     {
-        health -= damage;
-        CameraShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
-
-        //Death
-        if (health <= 0)
+        if (health > 0)
         {
-            if (damageSource != this) damageSource.IncrementKills();
-            deaths++;
+            health -= damage;
+            CameraShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
 
-            //Spawn corpse
-            GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
-            newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
+            //Death
+            if (health <= 0)
+            {
+                if (damageSource != this) damageSource.IncrementKills();
+                deaths++;
 
-            //Remove weapon
-            if (weapon) Destroy(weapon.gameObject);
+                //Spawn corpse
+                GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
+                newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
 
-            //Remove player temporarily
-            LeanTween.delayedCall(gameObject, 2, () => {
-                Respawn();
-            });
-            gameObject.SetActive(false);
-        }
+                //Remove weapon
+                if (weapon) Destroy(weapon.gameObject);
 
-        //Normal damage
-        else
-        {
-            playerMovement.ApplyForce(damageAngle, damageForce);
-            healthbarImage.fillAmount = ((float)health / maxHealth);
+                //Remove player temporarily
+                LeanTween.delayedCall(gameObject, 2, () => {
+                    Respawn();
+                });
+                gameObject.SetActive(false);
+            }
+
+            //Normal damage
+            else
+            {
+                playerMovement.ApplyForce(damageAngle, damageForce);
+                healthbarImage.fillAmount = ((float)health / maxHealth);
+            }
         }
     }
 

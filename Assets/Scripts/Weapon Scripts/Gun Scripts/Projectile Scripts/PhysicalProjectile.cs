@@ -11,17 +11,24 @@ public class PhysicalProjectile : ProjectileBase
     float actualRadius;
     bool safetyTrigger = true;
 
+    public SpriteRenderer bulletGlowSprite;
     public LayerMask collisionMask;
 
     CircleCollider2D circleCollider;
+    TrailRenderer trailRenderer;
 
 
 
     void Start()
     {
+        //GetComponent<SpriteRenderer>().color = color;
+        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer.startColor = color;
+        trailRenderer.endColor = color;
+        bulletGlowSprite.color = color;
+
         circleCollider = GetComponent<CircleCollider2D>();
         moveVector = direction * velocityMagnitude;
-        GetComponent<SpriteRenderer>().color = color;
         actualRadius = circleCollider.radius * transform.localScale.x;
 
         //Figure out what to do if the bullet spawned inside of something
