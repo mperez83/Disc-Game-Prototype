@@ -13,6 +13,7 @@ public class PlayerData : MonoBehaviour
     public int maxHealth;
     int health;
     public Image healthbarImage;
+    public float respawnTime;
 
     //Score stuff
     int kills;
@@ -27,6 +28,9 @@ public class PlayerData : MonoBehaviour
 
     //Respawn stuff
     public Transform respawnPointContainer;
+    public GameObject respawnWeapon;
+    public float spawnInvincDuration;
+    bool invincible;
 
     //Corpse stuff
     public GameObject corpsePrefab;
@@ -50,24 +54,35 @@ public class PlayerData : MonoBehaviour
         }
 
         health = maxHealth;
+        if (respawnWeapon) GiveWeapon(Instantiate(respawnWeapon, transform.position, Quaternion.identity));
     }
 
 
 
     public void GiveWeapon(GameObject newWeapon)
     {
-        if (weapon) Destroy(weapon.gameObject);
+        if (weapon) Destroy(weapon);
         weapon = newWeapon;
 
         //Fix position of weapon
         weapon.transform.parent = transform;
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localEulerAngles = Vector3.zero;
+
+        //If this is a gun, fix the angle
+        if (newWeapon.GetComponent<GunBase>())
+        {
+            newWeapon.transform.localEulerAngles = new Vector3(0, 90, -90);
+        }
+
+        //Disable pickup script stuff
+        newWeapon.GetComponent<BoxCollider2D>().enabled = false;
+        newWeapon.GetComponent<WeaponPickup>().enabled = false;
     }
 
     public void TakeDamage(int damage, float damageAngle, float damageForce, PlayerData damageSource)
     {
-        if (health > 0)
+        if (health > 0 && !invincible)
         {
             health -= damage;
             CameraShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
@@ -88,7 +103,7 @@ public class PlayerData : MonoBehaviour
                 if (weapon) Destroy(weapon.gameObject);
 
                 //Remove player temporarily
-                LeanTween.delayedCall(gameObject, 2, () => {
+                LeanTween.delayedCall(gameObject, respawnTime, () => {
                     Respawn();
                 });
                 gameObject.SetActive(false);
@@ -107,11 +122,45 @@ public class PlayerData : MonoBehaviour
     void Respawn()
     {
         gameObject.SetActive(true);
+
         health = 100;
         healthbarImage.fillAmount = ((float)health / maxHealth);
+        StartCoroutine(GiveIFrames());
 
         int randomChildIndex = Random.Range(0, respawnPointContainer.childCount);
         transform.position = respawnPointContainer.GetChild(randomChildIndex).position;
+
+        if (respawnWeapon) GiveWeapon(Instantiate(respawnWeapon, transform.position, Quaternion.identity));
+
+        //Generate respawn apparition
+        GameObject spawnApparition = new GameObject("Player Spawn Apparition", typeof(SpriteRenderer));
+        spawnApparition.transform.position = transform.position;
+
+        SpriteRenderer apparitionSR = spawnApparition.GetComponent<SpriteRenderer>();
+        apparitionSR.sprite = sr.sprite;
+        apparitionSR.color = sr.color;
+
+        LeanTween.scale(spawnApparition, spawnApparition.transform.localScale * 6, 0.5f).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.alpha(spawnApparition, 0, 0.5f).setOnComplete(() =>
+        {
+            Destroy(spawnApparition);
+        });
+    }
+
+    IEnumerator GiveIFrames()
+    {
+        invincible = true;
+        float invincDuration = spawnInvincDuration;
+
+        while (invincDuration > 0)
+        {
+            invincDuration -= Time.deltaTime;
+            sr.enabled = !sr.enabled;
+            yield return null;
+        }
+
+        sr.enabled = true;
+        invincible = false;
     }
 
 

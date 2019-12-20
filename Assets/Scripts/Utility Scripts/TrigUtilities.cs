@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrigUtilities : MonoBehaviour
+public class TrigUtilities
 {
     public static float VectorToDegrees(Vector2 vec)
     {

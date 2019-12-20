@@ -76,13 +76,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5866881359831099896}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e35ca2e47b9dae46b907ae69fb064cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 7532489414214312476}
   pickUpAS: {fileID: 2314218921766112737}
+  col: {fileID: 5866881359831099898}
 --- !u!114 &7532489414214312476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,7 +91,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5866881359831099896}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f3ba38e237a7104e84ff57b56d771d6, type: 3}
   m_Name: 
@@ -181,7 +182,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5866881359831099896}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

@@ -597,10 +597,14 @@ MonoBehaviour:
   - {r: 0.9150943, g: 0.9150943, b: 0.15970986, a: 1}
   maxHealth: 100
   healthbarImage: {fileID: 6798432220816957410}
+  respawnTime: 2
   textObjectPrefab: {fileID: 8932205119241869065, guid: 5c430b1ebfa3f3b47b63d39d3bbe414f,
     type: 3}
   playerHurtAS: {fileID: 5645917155436018845}
   respawnPointContainer: {fileID: 0}
+  respawnWeapon: {fileID: 5866881359831099896, guid: 118a9c8ecf3dd55498b0e2645eed6533,
+    type: 3}
+  spawnInvincDuration: 1
   corpsePrefab: {fileID: 7833158930942544218, guid: 17c40cd74f7c9134fb9f3f47ccac97c0,
     type: 3}
   corpseContainer: {fileID: 0}

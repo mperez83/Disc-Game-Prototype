@@ -43,6 +43,7 @@ public class WeaponSpawner : MonoBehaviour
 
     void CreateNewWeapon()
     {
-        Instantiate(potentialWeapons[Random.Range(0, potentialWeapons.Length)], transform);
+        GameObject newWeapon = Instantiate(potentialWeapons[Random.Range(0, potentialWeapons.Length)], transform);
+        newWeapon.GetComponent<WeaponPickup>().enabled = true;
     }
 }
