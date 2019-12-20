@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 200
-  damageForce: 400
+  damageForce: 500
   canHitOwner: 1
   bounces: 0
   causeExplosion: 1

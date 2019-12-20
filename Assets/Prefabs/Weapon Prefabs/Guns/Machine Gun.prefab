@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 13
+  damage: 10
   damageForce: 125
   canHitOwner: 0
   bounces: 0
