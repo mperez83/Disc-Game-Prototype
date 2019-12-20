@@ -35,7 +35,7 @@ public class PlayerBoost : MonoBehaviour
     {
         if (boosting)
         {
-            playerMovement.ApplyForceForward(boostPower);
+            playerMovement.ApplyForceForward(boostPower * Time.deltaTime);
         }
     }
 }

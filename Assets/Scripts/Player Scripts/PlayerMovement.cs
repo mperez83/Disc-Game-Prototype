@@ -5,13 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float playerAngle;
-
-    public bool useSpeedLimit;
-    public float speedLimit;
-
     PlayerData playerData;
     Rigidbody2D rb;
-    public Canvas playerCanvas;
 
 
 
@@ -28,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
         if (axis != Vector2.zero && axis.magnitude > 0.5f)
         {
             playerAngle = TrigUtilities.VectorToDegrees(axis);
-            transform.rotation = Quaternion.AngleAxis(-playerAngle, Vector3.forward);
         }
 
         //Handle input for if the player doesn't have a weapon
@@ -38,14 +32,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Handle flying off into infinity
-        if (GameManager.instance.IsTransformOffCamera(transform))
+        /*if (GameManager.instance.IsTransformOffCamera(transform))
         {
             transform.position = new Vector2(0, 0);
             print("Zoop!");
-        };
+        };*/
+    }
 
-        //Update position of personal canvas
-        playerCanvas.transform.position = transform.position;
+    void FixedUpdate()
+    {
+        rb.rotation = -playerAngle;
     }
 
 
@@ -53,12 +49,7 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyForce(float angle, float force)
     {
         rb.AddForce(TrigUtilities.DegreesToVector(angle) * force);
-
-        if (useSpeedLimit)
-        {
-            if (rb.velocity.magnitude > speedLimit)
-                rb.velocity = Vector2.ClampMagnitude(rb.velocity, speedLimit);
-        }
+        //rb.velocity = TrigUtilities.DegreesToVector(angle) * 12;
     }
 
     public void ApplyForceForward(float force)

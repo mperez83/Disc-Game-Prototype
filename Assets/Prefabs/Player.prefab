@@ -604,7 +604,7 @@ MonoBehaviour:
   respawnPointContainer: {fileID: 0}
   respawnWeapon: {fileID: 5866881359831099896, guid: 118a9c8ecf3dd55498b0e2645eed6533,
     type: 3}
-  spawnInvincDuration: 1
+  spawnInvincDuration: 2
   corpsePrefab: {fileID: 7833158930942544218, guid: 17c40cd74f7c9134fb9f3f47ccac97c0,
     type: 3}
   corpseContainer: {fileID: 0}
@@ -620,9 +620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d989d06f446d36348950da9214df3427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useSpeedLimit: 0
-  speedLimit: 100
-  playerCanvas: {fileID: 3114483614653686280}
 --- !u!114 &2658118219536683566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1818cf8dc7efa42a02f90db166f054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostPower: 25
+  boostPower: 1000
 --- !u!114 &129787319121192576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +680,7 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: fd5326b20d7c07b4798a4295c5d7623e, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
