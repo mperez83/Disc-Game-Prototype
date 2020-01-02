@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class MatchHandler : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class MatchHandler : MonoBehaviour
     public float matchTimerLength;
     float matchTimer;
     public Image timerBar;
+    public CinemachineTargetGroup cmTargetGroup;
+
+    public GameObject playerPrefab;
+    public Transform corpseContainer;
+    public Transform initialSpawnContainer;
+    public Transform respawnPointContainer;
 
 
 
@@ -18,6 +25,19 @@ public class MatchHandler : MonoBehaviour
     {
         instance = this;
         matchTimer = matchTimerLength;
+
+        int curSpawnPoint = 0;
+        for (int i = 0; i < DMMatchSettings.instance.GetNumberOfPlayers(); i++)
+        {
+            Vector2 spawnPos = initialSpawnContainer.GetChild(curSpawnPoint).position;
+            PlayerData newPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity).GetComponent<PlayerData>();
+            newPlayer.SetPlayerNum(i + 1);
+            cmTargetGroup.AddMember(newPlayer.transform, 1, 0);
+
+            curSpawnPoint++;
+            if (curSpawnPoint >= initialSpawnContainer.childCount) curSpawnPoint = 0;
+        }
+
         DMMatchStats.instance.SetupPlayerStats();
     }
 
@@ -46,6 +66,6 @@ public class MatchHandler : MonoBehaviour
     public void EndMatch()
     {
         DMMatchStats.instance.UpdatePlayerStats();
-        SceneManager.LoadScene("Results");
+        SceneManager.LoadScene("MatchResults");
     }
 }

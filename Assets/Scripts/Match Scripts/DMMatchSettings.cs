@@ -6,6 +6,8 @@ public class DMMatchSettings : MonoBehaviour
 {
     public static DMMatchSettings instance;
 
+    int numberOfPlayers = 1;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -19,4 +21,7 @@ public class DMMatchSettings : MonoBehaviour
         }
         DontDestroyOnLoad(this);
     }
+
+    public void SetNumberOfPlayers(int temp) { numberOfPlayers = temp; }
+    public int GetNumberOfPlayers() { return numberOfPlayers; }
 }

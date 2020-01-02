@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerData : MonoBehaviour
 {
     //Player num stuff
-    public int playerNum;
+    int playerNum;
     public Color[] playerColors;
 
     //Health stuff
@@ -27,14 +27,12 @@ public class PlayerData : MonoBehaviour
     public AudioSource playerHurtAS;
 
     //Respawn stuff
-    public Transform respawnPointContainer;
     public GameObject respawnWeapon;
     public float spawnInvincDuration;
     bool invincible;
 
     //Corpse stuff
     public GameObject corpsePrefab;
-    public Transform corpseContainer;
 
 
 
@@ -47,10 +45,9 @@ public class PlayerData : MonoBehaviour
         if (playerNum >= 1 && playerNum <= 4) sr.color = playerColors[playerNum - 1];
         else
         {
-            sr.color = Color.gray;
-            Destroy(GetComponent<PlayerBoost>());
-            Destroy(GetComponent<PlayerBrake>());
-            Destroy(GetComponent<PlayerMovement>());
+            Debug.LogError("Too many players tried to spawn!!");
+            Destroy(gameObject);
+            return;
         }
 
         health = maxHealth;
@@ -127,8 +124,8 @@ public class PlayerData : MonoBehaviour
         healthbarImage.fillAmount = ((float)health / maxHealth);
         StartCoroutine(GiveIFrames());
 
-        int randomChildIndex = Random.Range(0, respawnPointContainer.childCount);
-        transform.position = respawnPointContainer.GetChild(randomChildIndex).position;
+        int randomChildIndex = Random.Range(0, MatchHandler.instance.respawnPointContainer.childCount);
+        transform.position = MatchHandler.instance.respawnPointContainer.GetChild(randomChildIndex).position;
 
         if (respawnWeapon) GiveWeapon(Instantiate(respawnWeapon, transform.position, Quaternion.identity));
 
