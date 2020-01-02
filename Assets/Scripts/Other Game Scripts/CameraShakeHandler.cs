@@ -8,6 +8,8 @@ public class CameraShakeHandler : MonoBehaviour
     Vector3 originalCameraPosition;
     float shakeAmount;
 
+
+
     void Awake()
     {
         instance = this;
@@ -35,26 +37,8 @@ public class CameraShakeHandler : MonoBehaviour
         }
     }
 
+
+
     public void SetShakeAmount(float newShakeAmount) { shakeAmount = newShakeAmount * GameManager.instance.cameraShakeModifier; }
     public void IncreaseShakeAmount(float value) { shakeAmount += value * GameManager.instance.cameraShakeModifier; }
-
-    /*public void ShakeCamera(float power, float duration)
-    {
-        shakeAmount = power;
-        InvokeRepeating("CameraShake", 0, .01f);
-        Invoke("StopShaking", duration);
-    }
-
-    void CameraShake()
-    {
-        float angle = Random.Range(0f, 360f);
-        Vector2 offset = TrigUtilities.DegreesToVector(angle) * shakeAmount;
-        transform.position = originalCameraPosition + new Vector3(offset.x, offset.y);
-    }
-
-    void StopShaking()
-    {
-        CancelInvoke("CameraShake");
-        transform.position = originalCameraPosition;
-    }*/
 }

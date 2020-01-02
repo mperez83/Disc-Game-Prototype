@@ -85,7 +85,7 @@ public class PlayerData : MonoBehaviour
         if (health > 0 && !invincible)
         {
             health -= damage;
-            CameraShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
+            CMShakeHandler.instance.IncreaseShakeAmount(0.004f * damage);
 
             //Death
             if (health <= 0)
@@ -93,7 +93,7 @@ public class PlayerData : MonoBehaviour
                 if (damageSource != this) damageSource.IncrementKills();
                 deaths++;
 
-                CameraShakeHandler.instance.IncreaseShakeAmount(0.5f);
+                CMShakeHandler.instance.IncreaseShakeAmount(0.5f);
 
                 //Spawn corpse
                 GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);

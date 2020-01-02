@@ -52,7 +52,7 @@ public class Explosion : MonoBehaviour, IPooledObject
         //Setup animation
         LeanTween.cancel(gameObject);
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1);
-        transform.localScale = new Vector2(explosionRadius*2, explosionRadius*2);
+        transform.localScale = new Vector2(explosionRadius * 2, explosionRadius * 2);
 
         //Play animation
         LeanTween.alpha(gameObject, 0, 1).setEase(LeanTweenType.easeOutCubic);
@@ -62,7 +62,7 @@ public class Explosion : MonoBehaviour, IPooledObject
         });
 
         //Shake camera
-        CameraShakeHandler.instance.IncreaseShakeAmount(explosionRadius * 0.1f);
+        CMShakeHandler.instance.IncreaseShakeAmount(explosionRadius * 0.1f);
 
         //DrawDebugExplosion();
     }

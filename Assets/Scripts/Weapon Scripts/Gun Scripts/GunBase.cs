@@ -12,6 +12,7 @@ public class GunBase : WeaponBase
     public float shootTimerLength;
     public float accuracyDegreeOffsetRange;
     public float recoilStrength;
+    public float camShakeStrength;
 
     float shootTimer;
 
@@ -60,7 +61,7 @@ public class GunBase : WeaponBase
     {
         CreateProjectile();
         owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
-        CameraShakeHandler.instance.IncreaseShakeAmount(recoilStrength * 0.0002f);
+        CMShakeHandler.instance.IncreaseShakeAmount(camShakeStrength);
         audioSource.PlayRandomize();
     }
 

@@ -5,16 +5,23 @@ using TMPro;
 
 public class TextFadeObject : MonoBehaviour
 {
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI TMPtext;
 
     void Start()
     {
-        LeanTween.moveY(gameObject, transform.position.y + 1, 1f).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
+        //Position
+        LeanTween.moveY(gameObject, transform.position.y + 1, 2f).setEase(LeanTweenType.easeOutCubic).setDestroyOnComplete(true);
+
+        //Scale
+        LeanTween.scale(gameObject, transform.localScale * 0.75f, 2f).setEase(LeanTweenType.easeInCubic);
+
+        //Alpha
+        LeanTween.value(gameObject, 1, 0, 2f).setEase(LeanTweenType.easeInExpo).setOnUpdate((float value) =>
         {
-            Destroy(gameObject);
+            TMPtext.color = new Color(TMPtext.color.r, TMPtext.color.g, TMPtext.color.b, value);
         });
     }
 
-    public void SetText(string newText) { text.text = newText; }
-    public void SetColor(Color newColor) { text.color = newColor; }
+    public void SetText(string newText) { TMPtext.text = newText; }
+    public void SetColor(Color newColor) { TMPtext.color = newColor; }
 }

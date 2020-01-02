@@ -6,6 +6,7 @@ public class MeleeBase : WeaponBase
 {
     public int damage;
     public float knockbackPower;
+    public float camShakeStrength;
     List<GameObject> damagedPlayers;
     public float playerYOffset;
 
@@ -34,6 +35,7 @@ public class MeleeBase : WeaponBase
     public void ActivateHitbox()
     {
         hitboxCollider.enabled = true;
+        CMShakeHandler.instance.IncreaseShakeAmount(camShakeStrength);
     }
 
     public void DeactivateHitbox()

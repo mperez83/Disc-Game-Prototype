@@ -436,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 34
   knockbackPower: 400
+  camShakeStrength: 0.1
   playerYOffset: 0.13
   anim: {fileID: 460172885906719592}
   meleeDisplay: {fileID: 460172885906719595}
@@ -464,12 +465,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.14395471, y: 0.30452693}
-      - {x: -0.005910117, y: 0.36437714}
-      - {x: -0.15311462, y: 0.2974983}
-      - {x: -0.21766452, y: 0.19096175}
+    - - {x: 0.15880167, y: 0.39881846}
+      - {x: -0.0018609153, y: 0.47752705}
+      - {x: -0.1882075, y: 0.38943255}
+      - {x: -0.29864812, y: 0.24282208}
       - {x: -0.0012920152, y: -0.40888917}
-      - {x: 0.24511607, y: 0.14268693}
+      - {x: 0.29235652, y: 0.24169303}
 --- !u!50 &460172887072571999
 Rigidbody2D:
   serializedVersion: 4

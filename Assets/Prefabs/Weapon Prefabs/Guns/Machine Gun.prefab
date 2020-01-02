@@ -101,6 +101,7 @@ MonoBehaviour:
   shootTimerLength: 0.05
   accuracyDegreeOffsetRange: 10
   recoilStrength: 60
+  camShakeStrength: 0.05
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
   physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
@@ -127,8 +128,8 @@ MonoBehaviour:
   hitscan: 0
   decayTimerLength: 0.05
   instantTravel: 0
-  velocityMagnitude: 10
-  lifeSpan: 3
+  velocityMagnitude: 25
+  lifeSpan: 1.5
 --- !u!33 &7183144566955305274
 MeshFilter:
   m_ObjectHideFlags: 0
