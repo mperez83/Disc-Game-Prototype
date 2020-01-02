@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1619576745741763652}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
   m_Children:
   - {fileID: 7302597164158887780}
   m_Father: {fileID: 0}
@@ -98,7 +98,8 @@ MonoBehaviour:
   hitscan: 0
   decayTimerLength: 0.35
   instantTravel: 1
-  velocityMagnitude: 35
+  velocityMagnitude: 25
+  lifeSpan: 0.25
 --- !u!33 &6735620463037385825
 MeshFilter:
   m_ObjectHideFlags: 0

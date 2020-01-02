@@ -100,5 +100,6 @@ public class GunBase : WeaponBase
     {
         PhysicalProjectile physicalProjectile = bullet.GetComponent<PhysicalProjectile>();
         physicalProjectile.SetVelocityMagnitude(projectileData.velocityMagnitude);
+        physicalProjectile.SetLifeSpan(projectileData.lifeSpan);
     }
 }

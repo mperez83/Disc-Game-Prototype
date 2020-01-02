@@ -5,6 +5,7 @@ using UnityEngine;
 public class PhysicalProjectile : ProjectileBase
 {
     float velocityMagnitude;
+    float lifeSpan;
 
     Vector2 moveVector;
     Collider2D lastColliderHit;
@@ -56,6 +57,13 @@ public class PhysicalProjectile : ProjectileBase
                 Destroy(gameObject);
             }
         }
+
+        LeanTween.delayedCall(gameObject, lifeSpan, () =>
+        {
+            if (causeExplosion)
+                ObjectPooler.instance.SpawnExplosionFromPool(transform.position, damage, damageForce, explosionRadius, owner, canHitOwner);
+            Destroy(gameObject);
+        });
     }
 
     void Update()
@@ -100,7 +108,7 @@ public class PhysicalProjectile : ProjectileBase
         }
 
         //Detect if it went out into infinity
-        if (GameManager.instance.IsTransformOffCamera(transform)) Destroy(gameObject);
+        //if (GameManager.instance.IsTransformOffCamera(transform)) Destroy(gameObject);
     }
 
 
@@ -119,4 +127,5 @@ public class PhysicalProjectile : ProjectileBase
     }
 
     public void SetVelocityMagnitude(float temp) { velocityMagnitude = temp; }
+    public void SetLifeSpan(float temp) { lifeSpan = temp; }
 }

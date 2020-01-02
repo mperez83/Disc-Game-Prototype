@@ -63,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 5866881359831099896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.07, y: 0.07, z: -0.07}
+  m_LocalScale: {x: 0.1, y: 0.1, z: -0.1}
   m_Children:
   - {fileID: 7356801822013344659}
   m_Father: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901ff532438829a49bcf98d3bfe55b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 34
+  damage: 24
   damageForce: 400
   canHitOwner: 0
   bounces: 1
@@ -127,7 +127,8 @@ MonoBehaviour:
   hitscan: 0
   decayTimerLength: 0.2
   instantTravel: 0
-  velocityMagnitude: 50
+  velocityMagnitude: 35
+  lifeSpan: 0.5
 --- !u!33 &8345817584639828733
 MeshFilter:
   m_ObjectHideFlags: 0

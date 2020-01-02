@@ -30,6 +30,7 @@ public class ProjectileData : MonoBehaviour
 
     //Physical properties
     public float velocityMagnitude;
+    public float lifeSpan;
 }
 
 
@@ -48,6 +49,7 @@ public class MyScriptEditor : Editor
     SerializedProperty p_decayTimerLength;
     SerializedProperty p_instantTravel;
     SerializedProperty p_velocityMagnitude;
+    SerializedProperty p_lifeSpan;
 
     protected virtual void OnEnable()
     {
@@ -62,6 +64,7 @@ public class MyScriptEditor : Editor
         p_decayTimerLength = serializedObject.FindProperty("decayTimerLength");
         p_instantTravel = serializedObject.FindProperty("instantTravel");
         p_velocityMagnitude = serializedObject.FindProperty("velocityMagnitude");
+        p_lifeSpan = serializedObject.FindProperty("lifeSpan");
     }
 
     public override void OnInspectorGUI()
@@ -94,6 +97,7 @@ public class MyScriptEditor : Editor
         else
         {
             EditorGUILayout.PropertyField(p_velocityMagnitude);
+            EditorGUILayout.PropertyField(p_lifeSpan);
         }
 
         /*EditorGUILayout.PropertyField(p_causeExplosion);

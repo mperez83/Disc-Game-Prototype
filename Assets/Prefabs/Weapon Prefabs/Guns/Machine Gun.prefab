@@ -63,7 +63,7 @@ Transform:
   m_GameObject: {fileID: 2931835158375702815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2363279462330837738}
   m_Father: {fileID: 0}
@@ -99,8 +99,8 @@ MonoBehaviour:
   projectileStartPos: {fileID: 2363279462330837738}
   automatic: 1
   shootTimerLength: 0.05
-  accuracyDegreeOffsetRange: 5
-  recoilStrength: 80
+  accuracyDegreeOffsetRange: 10
+  recoilStrength: 60
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
   physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,
@@ -127,7 +127,8 @@ MonoBehaviour:
   hitscan: 0
   decayTimerLength: 0.05
   instantTravel: 0
-  velocityMagnitude: 35
+  velocityMagnitude: 10
+  lifeSpan: 3
 --- !u!33 &7183144566955305274
 MeshFilter:
   m_ObjectHideFlags: 0
