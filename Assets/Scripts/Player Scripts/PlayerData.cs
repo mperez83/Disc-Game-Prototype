@@ -95,6 +95,7 @@ public class PlayerData : MonoBehaviour
                 //Spawn corpse
                 GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
                 newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
+                newCorpse.transform.localScale = transform.localScale;
 
                 //Remove weapon
                 if (weapon) Destroy(weapon.gameObject);

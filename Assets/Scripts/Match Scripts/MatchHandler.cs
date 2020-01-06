@@ -32,6 +32,19 @@ public class MatchHandler : MonoBehaviour
             Vector2 spawnPos = initialSpawnContainer.GetChild(curSpawnPoint).position;
             PlayerData newPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity).GetComponent<PlayerData>();
             newPlayer.SetPlayerNum(i + 1);
+
+            //Apply movement modifier
+            PlayerBoost playerBoost = newPlayer.GetComponent<PlayerBoost>();
+            playerBoost.boostPower *= DMMatchSettings.instance.GetSpeedMultiplier();
+
+            //Apply drag modifier
+            Rigidbody2D playerRB = newPlayer.GetComponent<Rigidbody2D>();
+            playerRB.drag *= DMMatchSettings.instance.GetDragMultiplier();
+
+            //Apply size modifier
+            newPlayer.transform.localScale *= DMMatchSettings.instance.GetSizeMultiplier();
+
+            //Add the player to the cinemachine
             cmTargetGroup.AddMember(newPlayer.transform, 1, 0);
 
             curSpawnPoint++;

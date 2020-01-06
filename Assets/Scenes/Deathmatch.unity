@@ -5344,7 +5344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90a645fe82034a4b99412327cc55292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchTimerLength: 4
+  matchTimerLength: 12
   timerBar: {fileID: 1156382136}
   cmTargetGroup: {fileID: 2053524132}
   playerPrefab: {fileID: 8873858682549254922, guid: f0cb23f62cf667d4ba694fc5c17b30f0,
