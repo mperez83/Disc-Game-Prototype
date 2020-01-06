@@ -25,7 +25,10 @@ public class ProjectileBase : MonoBehaviour
     public void SetDirection(Vector2 temp) { direction = temp; }
     public void SetDamage(int temp) { damage = temp; }
     public void SetDamageForce(float temp) { damageForce = temp; }
+
+    public PlayerData GetOwner() { return owner; }
     public void SetOwner(PlayerData temp) { owner = temp; }
+
     public void SetCanHitOwner(bool temp) { canHitOwner = temp; }
     public void SetColor(Color temp) { color = temp; }
     public void SetBounces(int temp) { bounces = temp; }

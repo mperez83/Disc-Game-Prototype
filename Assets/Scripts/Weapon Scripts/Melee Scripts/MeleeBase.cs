@@ -6,6 +6,9 @@ public class MeleeBase : WeaponBase
 {
     public int damage;
     public float knockbackPower;
+    public bool canReflect;
+    public float reflectSpeedAmp;
+    public float reflectDamageAmp;
     public float camShakeStrength;
     List<GameObject> damagedPlayers;
     public float playerYOffset;
@@ -60,6 +63,18 @@ public class MeleeBase : WeaponBase
             if (!damagedPlayers.Contains(other.gameObject))
             {
                 other.GetComponentInParent<PlayerData>().TakeDamage(damage, owner.GetPlayerMovement().GetPlayerAngle(), knockbackPower, owner);
+                damagedPlayers.Add(other.gameObject);
+            }
+        }
+
+        else if (canReflect && other.CompareTag("Bullet"))
+        {
+            if (!damagedPlayers.Contains(other.gameObject))
+            {
+                PhysicalProjectile bullet = other.GetComponent<PhysicalProjectile>();
+                if (bullet.GetOwner() == owner) return;
+
+                bullet.ReflectBullet(owner, reflectSpeedAmp, reflectDamageAmp);
                 damagedPlayers.Add(other.gameObject);
             }
         }

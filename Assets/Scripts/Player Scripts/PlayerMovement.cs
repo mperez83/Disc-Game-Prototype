@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     float playerAngle;
+    float knockbackMultiplier;
     PlayerData playerData;
     Rigidbody2D rb;
 
@@ -49,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyForce(float angle, float force)
     {
         rb.AddForce(TrigUtilities.DegreesToVector(angle) * force);
-        //rb.velocity = TrigUtilities.DegreesToVector(angle) * 12;
     }
 
     public void ApplyForceForward(float force)
@@ -57,6 +57,14 @@ public class PlayerMovement : MonoBehaviour
         ApplyForce(playerAngle, force);
     }
 
+    //Like ApplyForce, but is affected by the knockback multiplier
+    public void ApplyKnockback(float angle, float force)
+    {
+        rb.AddForce(TrigUtilities.DegreesToVector(angle) * force * knockbackMultiplier);
+    }
+
     public float GetPlayerAngle() { return playerAngle; }
+    public float GetKnockbackMultiplier() { return knockbackMultiplier; }
+    public void SetKnockbackMultiplier(float temp) { knockbackMultiplier = temp; }
     public Vector2 GetPlayerDirection() { return TrigUtilities.DegreesToVector(playerAngle); }
 }

@@ -71,7 +71,7 @@ MonoBehaviour:
   shootTimerLength: 0.75
   accuracyDegreeOffsetRange: 15
   recoilStrength: 600
-  camShakeStrength: 0.5
+  camShakeStrength: 0.35
   hitscanProjectilePrefab: {fileID: 3786741600101236605, guid: 8530c796be287e54fb5b8740517f2cb7,
     type: 3}
   physicalProjectilePrefab: {fileID: 3786741600101236605, guid: 004bc91ecd175f14482f81b617287463,

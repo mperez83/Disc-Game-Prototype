@@ -440,7 +440,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   knockbackPower: 1000
-  camShakeStrength: 0.25
+  canReflect: 1
+  reflectSpeedAmp: 3
+  reflectDamageAmp: 2
+  camShakeStrength: 0.15
   playerYOffset: 0.35
   anim: {fileID: 460172885906719592}
   meleeDisplay: {fileID: 460172885906719595}

@@ -60,7 +60,7 @@ public class GunBase : WeaponBase
     protected virtual void FireWeapon()
     {
         CreateProjectile();
-        owner.GetPlayerMovement().ApplyForce(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
+        owner.GetPlayerMovement().ApplyKnockback(owner.GetPlayerMovement().GetPlayerAngle() + 180f, recoilStrength);
         CMShakeHandler.instance.IncreaseShakeAmount(camShakeStrength);
         audioSource.PlayRandomize();
     }
@@ -79,7 +79,7 @@ public class GunBase : WeaponBase
         projectile.SetDamageForce(projectileData.damageForce);
         projectile.SetOwner(owner);
         projectile.SetCanHitOwner(projectileData.canHitOwner);
-        projectile.SetColor(owner.GetComponent<SpriteRenderer>().GetModifiedBrightness(3f));
+        projectile.SetColor(owner.GetColor().GetModifiedBrightness(3f));
         projectile.SetBounces(projectileData.bounces);
         projectile.SetCauseExplosion(projectileData.causeExplosion);
         projectile.SetExplosionRadius(projectileData.explosionRadius);

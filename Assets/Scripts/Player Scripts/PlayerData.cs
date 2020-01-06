@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
     //Player num stuff
     int playerNum;
     public Color[] playerColors;
+    Color color;
 
     //Health stuff
     public int maxHealth;
@@ -22,6 +23,7 @@ public class PlayerData : MonoBehaviour
 
     //References
     SpriteRenderer sr;
+    Rigidbody2D rb;
     PlayerMovement playerMovement;
     GameObject weapon;
     public AudioSource playerHurtAS;
@@ -39,13 +41,18 @@ public class PlayerData : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
 
         //Set color
-        if (playerNum >= 1 && playerNum <= 4) sr.color = playerColors[playerNum - 1];
+        if (playerNum >= 1 && playerNum <= 4)
+        {
+            color = playerColors[playerNum - 1];
+            sr.color = color;
+        }
         else
         {
-            Debug.LogError("Too many players tried to spawn!!");
+            Debug.LogError("Too many players tried to spawn!! (playerNum was " + playerNum + ")");
             Destroy(gameObject);
             return;
         }
@@ -94,8 +101,12 @@ public class PlayerData : MonoBehaviour
 
                 //Spawn corpse
                 GameObject newCorpse = Instantiate(corpsePrefab, transform.position, Quaternion.identity);
-                newCorpse.GetComponent<Rigidbody2D>().AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
                 newCorpse.transform.localScale = transform.localScale;
+
+                Rigidbody2D corpseRB = newCorpse.GetComponent<Rigidbody2D>();
+                corpseRB.AddForce(TrigUtilities.DegreesToVector(damageAngle) * damageForce * Time.deltaTime, ForceMode2D.Impulse);
+                corpseRB.drag = rb.drag;
+                corpseRB.sharedMaterial = rb.sharedMaterial;
 
                 //Remove weapon
                 if (weapon) Destroy(weapon.gameObject);
@@ -110,7 +121,7 @@ public class PlayerData : MonoBehaviour
             //Normal damage
             else
             {
-                playerMovement.ApplyForce(damageAngle, damageForce);
+                playerMovement.ApplyKnockback(damageAngle, damageForce);
                 healthbarImage.fillAmount = ((float)health / maxHealth);
                 playerHurtAS.PlayRandomize(0.25f);
             }
@@ -121,7 +132,7 @@ public class PlayerData : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        health = 100;
+        health = maxHealth;
         healthbarImage.fillAmount = ((float)health / maxHealth);
         StartCoroutine(GiveIFrames());
 
@@ -166,6 +177,8 @@ public class PlayerData : MonoBehaviour
     //Getters/Setters
     public int GetPlayerNum() { return playerNum; }
     public void SetPlayerNum(int num) { playerNum = num; }
+
+    public Color GetColor() { return color; }
 
     public int GetKills() { return kills; }
     public void IncrementKills()

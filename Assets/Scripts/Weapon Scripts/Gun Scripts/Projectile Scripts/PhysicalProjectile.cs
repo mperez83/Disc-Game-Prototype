@@ -24,9 +24,7 @@ public class PhysicalProjectile : ProjectileBase
     {
         //GetComponent<SpriteRenderer>().color = color;
         trailRenderer = GetComponent<TrailRenderer>();
-        trailRenderer.startColor = color;
-        trailRenderer.endColor = color;
-        bulletGlowSprite.color = color;
+        ColorBullet();
 
         circleCollider = GetComponent<CircleCollider2D>();
         moveVector = direction * velocityMagnitude;
@@ -112,6 +110,23 @@ public class PhysicalProjectile : ProjectileBase
     }
 
 
+
+    public void ReflectBullet(PlayerData newOwner, float speedAmp, float damageAmp)
+    {
+        moveVector *= (-1 * speedAmp);
+        damage = (int)Mathf.Ceil(damage * damageAmp);
+
+        owner = newOwner;
+        color = newOwner.GetColor();
+        ColorBullet();
+    }
+
+    void ColorBullet()
+    {
+        trailRenderer.startColor = color;
+        trailRenderer.endColor = color;
+        bulletGlowSprite.color = color;
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

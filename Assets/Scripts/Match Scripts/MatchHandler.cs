@@ -24,6 +24,8 @@ public class MatchHandler : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        matchTimerLength = DMMatchSettings.instance.GetMatchTimer();
         matchTimer = matchTimerLength;
 
         int curSpawnPoint = 0;
@@ -33,16 +35,29 @@ public class MatchHandler : MonoBehaviour
             PlayerData newPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity).GetComponent<PlayerData>();
             newPlayer.SetPlayerNum(i + 1);
 
-            //Apply movement modifier
+            //Apply player health setting
+            newPlayer.maxHealth = DMMatchSettings.instance.GetPlayerHealth();
+            
+            //Apply bouncy players setting
+            Rigidbody2D playerRB = newPlayer.GetComponent<Rigidbody2D>();
+            PhysicsMaterial2D newMat = new PhysicsMaterial2D();
+            newMat.friction = 0;
+            newMat.bounciness = (DMMatchSettings.instance.GetBouncyPlayers()) ? 1 : 0;
+            playerRB.sharedMaterial = newMat;
+
+            //Apply speed multiplier setting
             PlayerBoost playerBoost = newPlayer.GetComponent<PlayerBoost>();
             playerBoost.boostPower *= DMMatchSettings.instance.GetSpeedMultiplier();
 
-            //Apply drag modifier
-            Rigidbody2D playerRB = newPlayer.GetComponent<Rigidbody2D>();
+            //Apply drag multiplier setting
             playerRB.drag *= DMMatchSettings.instance.GetDragMultiplier();
 
-            //Apply size modifier
+            //Apply size multiplier setting
             newPlayer.transform.localScale *= DMMatchSettings.instance.GetSizeMultiplier();
+
+            //Apply knockback multiplier setting
+            PlayerMovement playerMovement = newPlayer.GetComponent<PlayerMovement>();
+            playerMovement.SetKnockbackMultiplier(DMMatchSettings.instance.GetKnockbackMultiplier());
 
             //Add the player to the cinemachine
             cmTargetGroup.AddMember(newPlayer.transform, 1, 0);
