@@ -22,7 +22,7 @@ public class PlayerData : MonoBehaviour
     public GameObject textObjectPrefab;
 
     //References
-    SpriteRenderer sr;
+    public MeshRenderer meshRenderer;
     Rigidbody2D rb;
     PlayerMovement playerMovement;
     GameObject weapon;
@@ -40,7 +40,6 @@ public class PlayerData : MonoBehaviour
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
 
@@ -48,7 +47,15 @@ public class PlayerData : MonoBehaviour
         if (playerNum >= 1 && playerNum <= 4)
         {
             color = playerColors[playerNum - 1];
-            sr.color = color;
+            
+            Material[] tempMaterialsArray = new Material[meshRenderer.materials.Length];
+            System.Array.Copy(meshRenderer.materials, tempMaterialsArray, meshRenderer.materials.Length);
+
+            Material newMat = new Material(meshRenderer.materials[1]);
+            newMat.color = color;
+
+            tempMaterialsArray[1] = newMat;
+            meshRenderer.materials = tempMaterialsArray;
         }
         else
         {
@@ -70,7 +77,7 @@ public class PlayerData : MonoBehaviour
 
         //Fix position of weapon
         weapon.transform.parent = transform;
-        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localPosition = new Vector3(0, 0, -0.5f);
         weapon.transform.localEulerAngles = Vector3.zero;
 
         //If this is a gun, fix the angle
@@ -146,8 +153,8 @@ public class PlayerData : MonoBehaviour
         spawnApparition.transform.position = transform.position;
 
         SpriteRenderer apparitionSR = spawnApparition.GetComponent<SpriteRenderer>();
-        apparitionSR.sprite = sr.sprite;
-        apparitionSR.color = sr.color;
+        //apparitionSR.sprite = sr.sprite;
+        //apparitionSR.color = sr.color;
 
         LeanTween.scale(spawnApparition, spawnApparition.transform.localScale * 6, 0.5f).setEase(LeanTweenType.easeOutCubic);
         LeanTween.alpha(spawnApparition, 0, 0.5f).setOnComplete(() =>
@@ -164,11 +171,11 @@ public class PlayerData : MonoBehaviour
         while (invincDuration > 0)
         {
             invincDuration -= Time.deltaTime;
-            sr.enabled = !sr.enabled;
+            //sr.enabled = !sr.enabled;
             yield return null;
         }
 
-        sr.enabled = true;
+        //sr.enabled = true;
         invincible = false;
     }
 
@@ -186,12 +193,11 @@ public class PlayerData : MonoBehaviour
         kills++;
         TextFadeObject killText = Instantiate(textObjectPrefab, transform.position, Quaternion.identity).GetComponent<TextFadeObject>();
         killText.SetText(kills.ToString() + "!");
-        killText.SetColor(sr.color);
+        killText.SetColor(color);
     }
 
     public int GetDeaths() { return deaths; }
 
     public GameObject GetWeapon() { return weapon; }
     public PlayerMovement GetPlayerMovement() { return playerMovement; }
-    public SpriteRenderer GetSpriteRenderer() { return sr; }
 }

@@ -30,7 +30,7 @@ public class MeleeBase : WeaponBase
 
         damagedPlayers = new List<GameObject>();
 
-        meleeDisplay.ColorBlade(owner.GetComponent<SpriteRenderer>().color);
+        meleeDisplay.ColorBlade(owner.GetColor());
     }
 
 
